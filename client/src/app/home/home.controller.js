@@ -1,9 +1,8 @@
-'use strict';
 
 angular.module('patientsApp')
 
 .controller('HomeCtrl', [
-          '$scope', '$timeout', '$location'
+          '$scope', '$timeout', '$location',
   function($scope,   $timeout,   $location) {
     $scope.patients = [];
     $scope.newPatient = '';

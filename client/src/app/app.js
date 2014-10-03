@@ -1,16 +1,16 @@
-'use strict';
-
 angular.module('patientsApp', [
   'ngResource',
-  'ngRoute'
-])
+  'ngRoute',
+  'templates.app',
+  'templates.common'
+]);
 
 angular.module('patientsApp')
 
-.config([ '$stateProvider', '$urlRouterProvider',
-  function($routeProvider, $locationProvider) {
-    $routeProvider
+.config([ '$routeProvider', '$locationProvider',
+  function($routeProvider,   $locationProvider) {
 
+    $routeProvider
       .when('/', {
         templateUrl: 'home/home.html',
         controller: 'HomeCtrl',
@@ -23,5 +23,14 @@ angular.module('patientsApp')
       });
 
     $locationProvider.html5Mode(true);
+  }
+])
+
+.controller('MainController', [
+          '$scope', '$route', '$routeParams', '$location',
+  function($scope,   $route,   $routeParams,   $location) {
+    $scope.$route = $route;
+    $scope.$location = $location;
+    $scope.$routeParams = $routeParams;
   }
 ]);
