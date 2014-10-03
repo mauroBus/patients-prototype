@@ -1,2 +1,3 @@
-MEAN-demo
-=========
+Local deployment
+================
+- Requires MongoDB with....
