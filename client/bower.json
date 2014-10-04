@@ -9,6 +9,7 @@
     "bootstrap-css": "~3.2.0",
     "angular": "~1.2.26",
     "angular-resource": "~1.2.26",
-    "angular-route": "~1.2.26"
+    "angular-route": "~1.2.26",
+    "normalize-css": "~3.0.1"
   }
 }

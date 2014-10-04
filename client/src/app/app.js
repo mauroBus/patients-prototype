@@ -1,5 +1,6 @@
 angular.module('patientsApp', [
-  'ngResource',
+  'patientsApp.services',
+  'patientsApp.urlConfig',
   'ngRoute',
   'templates.app',
   'templates.common'
@@ -9,20 +10,12 @@ angular.module('patientsApp')
 
 .config([ '$routeProvider', '$locationProvider',
   function($routeProvider,   $locationProvider) {
-
     $routeProvider
-      .when('/', {
-        templateUrl: 'home/home.html',
-        controller: 'HomeCtrl',
-        reloadOnSearch: false
-      })
-
-      // default on error:
       .otherwise({
-        redirectTo: '/'
+        redirectTo: '/home'
       });
 
-    $locationProvider.html5Mode(true);
+    // $locationProvider.html5Mode(true);
   }
 ])
 

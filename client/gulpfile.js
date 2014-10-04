@@ -144,7 +144,7 @@ gulp.task('watch', ['lint', 'build'], function() {
   livereload.listen(config.livereloadPort);
 
   gulp.watch('src/**/*.js', ['lint', 'build-js']);
-  gulp.watch('src/**/*.tpl.html', ['build-js']);
+  gulp.watch(['src/**/*.html', '!src/index.html'], ['build-js']);
   gulp.watch('src/index.html', ['build-index']);
   gulp.watch(['src/assets/**/*.*', '!src/assets/less/*.less'], ['copy-static']);
   gulp.watch([
