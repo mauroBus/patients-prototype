@@ -1,6 +1,12 @@
 <header ng-controller="HeaderCtrl">
   <h1>Patients App Demo</h1>
-  <button class="right" ng-hide="displayNewPatient()">
+  <button class="right" ng-show="showHomeLink()">
+    <a href="#/home">Home</a>
+  </button>
+  <button class="right" ng-show="showNewPatientLink()">
     <a href="#/newpatient">Add New Patient</a>
+  </button>
+  <button class="right" ng-show="showAboutLink()">
+    <a href="#/about">About</a>
   </button>
 </header>

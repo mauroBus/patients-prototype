@@ -1,14 +1,13 @@
-<section id="main" ng-show="patients.length" ng-cloak>
-  <ul id="patient-list">
-    <li ng-repeat="(id, patient) in patients | filter:statusFilter track by $index" ng-class="{completed: patient.completed, editing: patient == editedPatient}">
-      <div class="view">
-        <input class="toggle" type="checkbox" ng-model="patient.completed" ng-change="patient.$update()">
-        <label ng-dblclick="editPatient(id)">{{patient.name}}</label>
-        <button class="destroy" ng-click="removePatient(id)"></button>
+<section ng-cloak>
+  <ul ng-show="patients.length">
+    <li ng-repeat="(id, patient) in patients | filter:statusFilter track by $index">
+      <div class="patient">
+        <label class="patient-name">{{patient.name}}</label>
+        <label class="patient-name">{{patient.lastName}}</label>
+        <label class="patient-name">{{patient.dni}}</label>
+        <label class="patient-name">{{patient.birthday}}</label>
+        <!-- <button class="destroy" ng-click="removePatient(id)"></button> -->
       </div>
-      <form ng-submit="doneEditing(id)">
-        <input class="edit" ng-model="patient.name" patient-escape="revertEditing(id)" ng-blur="doneEditing(id)" patient-focus="patient == editedPatient">
-      </form>
     </li>
   </ul>
 </section>

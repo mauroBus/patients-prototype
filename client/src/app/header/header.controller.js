@@ -5,8 +5,14 @@ angular.module('patientsApp')
           '$scope', '$location',
   function($scope,   $location) {
     var scope = {
-      displayNewPatient: function() {
-        return $location.path() === '/newpatient';
+      showHomeLink: function() {
+        return $location.path() !== '/home';
+      },
+      showNewPatientLink: function() {
+        return $location.path() !== '/newpatient';
+      },
+      showAboutLink: function() {
+        return $location.path() !== '/about';
       }
     };
 

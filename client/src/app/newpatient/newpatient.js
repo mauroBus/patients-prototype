@@ -6,7 +6,6 @@ angular.module('patientsApp')
     $routeProvider.when('/newpatient', {
       templateUrl: 'newpatient/newpatient.html',
       controller: 'NewPatientCtrl'
-      // reloadOnSearch: false
     });
   }
 ]);

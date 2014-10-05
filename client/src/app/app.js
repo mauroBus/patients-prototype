@@ -17,13 +17,4 @@ angular.module('patientsApp')
 
     // $locationProvider.html5Mode(true);
   }
-])
-
-.controller('RouteController', [
-          '$scope', '$route', '$routeParams', '$location',
-  function($scope,   $route,   $routeParams,   $location) {
-    $scope.$route = $route;
-    $scope.$location = $location;
-    $scope.$routeParams = $routeParams;
-  }
 ]);

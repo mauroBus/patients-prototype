@@ -17,9 +17,6 @@
   <!-- Application content: -->
   <div class="container" ng-view=""></div>
 
-  <div ng-controller="RouteController">
-    <div>{{$location.path()}}</div>
-    <div>{{$routeParams}}</div>
-  </div>
+  <div ng-include="'footer/footer.html'" class="container"></div>
 </body>
 </html>
