@@ -7,21 +7,21 @@
         type="button"
         class="btn btn-primary"
         ng-show="showHomeLink()"
-        ng-click="go('/home')">
-        Home
+        go url="/home">
+          Home
       </button>
       <button
         type="button"
         class="btn btn-success"
         ng-show="showNewPatientLink()"
-        ng-click="go('/newpatient')">
+        go url="/newpatient">
           Add New Patient
       </button>
       <button
         type="button"
         class="btn btn-default"
         ng-show="showAboutLink()"
-        ng-click="go('/about')">
+        go url="/about">
           About
       </button>
     </div>
