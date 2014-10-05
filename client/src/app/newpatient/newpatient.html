@@ -1,8 +1,8 @@
-<section>
+<section class="newpatient">
   <form class="form-horizontal" role="form">
     <div class="form-group">
       <label class="col-sm-2 control-label">Name</label>
-      <div class="col-sm-10">
+      <div class="col-sm-9">
         <input
           type="text"
           class="form-control"
@@ -13,7 +13,7 @@
 
     <div class="form-group">
       <label class="col-sm-2 control-label">Last Name</label>
-      <div class="col-sm-10">
+      <div class="col-sm-9">
         <input
           type="text"
           class="form-control"
@@ -24,7 +24,7 @@
 
     <div class="form-group">
       <label class="col-sm-2 control-label">DNI</label>
-      <div class="col-sm-10">
+      <div class="col-sm-9">
         <input
           type="text"
           class="form-control"
@@ -35,7 +35,7 @@
 
     <div class="form-group">
       <label class="col-sm-2 control-label">Birthday</label>
-      <div class="col-sm-10">
+      <div class="col-sm-9">
         <input
           type="text"
           class="form-control"
@@ -46,11 +46,19 @@
 
   </form>
 
-  <p class="bg-success" ng-show="successfulyCreated">The patient has been created!</p>
+  <div
+    class="alert alert-success"
+    role="alert"
+    ng-show="successfulyCreated">
+    <strong>Well done!</strong> The patient has been created!
+  </div>
 
   <div class="well">
     <button class="create btn btn-primary btn-block" ng-click="addPatient()">Add Patient</button>
-    <button class="cancel btn btn-default btn-block" ng-click="go('/home')">Cancel and Go Back</button>
+    <button
+      class="cancel btn btn-default btn-block"
+      go-back-btn
+      btntxt="Cancel and Go Back"></button>
   </div>
 
 </section>

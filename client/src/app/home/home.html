@@ -1,11 +1,15 @@
-<section ng-cloak>
-  <ul ng-show="patients.length" class="list-unstyled">
-    <li ng-repeat="(id, patient) in patients | filter:statusFilter track by $index">
+<section class="home" ng-cloak>
+  <div ng-include="'home/filter/filter.html'"></div>
+
+  <ul ng-show="patients.length" class="list-unstyled list-group">
+    <li
+      ng-repeat="(id, patient) in patients | filter:$rootScope.searchTxt"
+      class="list-group-item">
       <address class="patient">
-        <strong class="patient-name">{{patient.name}}</strong>
-        <div class="patient-name">{{patient.lastName}}</div>
-        <div class="patient-name">{{patient.dni}}</div>
-        <div class="patient-name">{{patient.birthday}}</div>
+        <strong class="patient-name list-group-item-heading">{{patient.name}}</strong>
+        <div class="patient-name list-group-item-text">{{patient.lastName}}</div>
+        <div class="patient-name list-group-item-text">{{patient.dni}}</div>
+        <div class="patient-name list-group-item-text">{{patient.birthday}}</div>
         <!-- <button class="destroy" ng-click="removePatient(id)"></button> -->
       </address>
     </li>

@@ -1,27 +1,30 @@
 <header ng-controller="HeaderCtrl">
-  <h1>Patients App Demo</h1>
-  <div class="text-center">
-    <button
-      type="button"
-      class="btn btn-primary"
-      ng-show="showHomeLink()"
-      ng-click="go('/home')">
-      Home
-    </button>
-    <button
-      type="button"
-      class="btn btn-success"
-      ng-show="showNewPatientLink()"
-      ng-click="go('/newpatient')">
-        Add New Patient
-    </button>
-    <button
-      type="button"
-      class="btn btn-default"
-      ng-show="showAboutLink()"
-      ng-click="go('/about')">
-        About
-    </button>
+  <div class="page-header">
+    <h1>Patients App Demo</h1>
+
+    <div class="text-center">
+      <button
+        type="button"
+        class="btn btn-primary"
+        ng-show="showHomeLink()"
+        ng-click="go('/home')">
+        Home
+      </button>
+      <button
+        type="button"
+        class="btn btn-success"
+        ng-show="showNewPatientLink()"
+        ng-click="go('/newpatient')">
+          Add New Patient
+      </button>
+      <button
+        type="button"
+        class="btn btn-default"
+        ng-show="showAboutLink()"
+        ng-click="go('/about')">
+          About
+      </button>
+    </div>
   </div>
   <pre>{{subPageName()}}</pre>
 </header>
