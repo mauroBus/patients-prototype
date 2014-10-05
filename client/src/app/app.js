@@ -19,7 +19,7 @@ angular.module('patientsApp')
   }
 ])
 
-.controller('MainController', [
+.controller('RouteController', [
           '$scope', '$route', '$routeParams', '$location',
   function($scope,   $route,   $routeParams,   $location) {
     $scope.$route = $route;

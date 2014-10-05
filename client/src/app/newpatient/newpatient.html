@@ -1,0 +1,20 @@
+<section>
+  <div class="">
+    <input class="edit" ng-model="newPatient.name">
+    <input class="edit" ng-model="newPatient.lastName">
+    <input class="edit" ng-model="newPatient.dni">
+    <input class="edit" ng-model="newPatient.birthday">
+  </div>
+  <div class="">
+    <label>{{newPatient.name}}</label>
+    <label>{{newPatient.lastName}}</label>
+    <label>{{newPatient.dni}}</label>
+    <label>{{newPatient.birthday}}</label>
+  </div>
+
+  <button class="create" ng-click="addPatient()">Add Patient</button>
+  <button class="cancel">
+    <a href="#/home">Cancel and Go Back</a>
+  </button>
+
+</section>

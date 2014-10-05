@@ -16,5 +16,10 @@
   <div ng-include="'header/header.html'" class="container"></div>
   <!-- Application content: -->
   <div class="container" ng-view=""></div>
+
+  <div ng-controller="RouteController">
+    <div>{{$location.path()}}</div>
+    <div>{{$routeParams}}</div>
+  </div>
 </body>
 </html>

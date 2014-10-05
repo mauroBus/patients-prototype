@@ -1,6 +1,4 @@
 <section id="main" ng-show="patients.length" ng-cloak>
-  <input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
-  <label for="toggle-all">Mark all as complete</label>
   <ul id="patient-list">
     <li ng-repeat="(id, patient) in patients | filter:statusFilter track by $index" ng-class="{completed: patient.completed, editing: patient == editedPatient}">
       <div class="view">
