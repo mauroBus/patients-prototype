@@ -15,10 +15,6 @@ angular.module('patientsApp')
       successfulyCreated: false,
       cancelBtnTxt: 'Cancel and Go Back',
 
-      go: function(path) {
-        $location.path(path);
-      },
-
       addPatient: function() {
         if (!$rootScope.patients) {
           $rootScope.patients = [];

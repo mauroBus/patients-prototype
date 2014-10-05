@@ -3,7 +3,7 @@
 
   <ul ng-show="patients.length" class="list-unstyled list-group">
     <li
-      ng-repeat="(id, patient) in patients | filter:$rootScope.searchTxt"
+      ng-repeat="(id, patient) in patients | filter:searchTxt"
       class="list-group-item">
       <address class="patient">
         <strong class="patient-name list-group-item-heading">{{patient.name}}</strong>

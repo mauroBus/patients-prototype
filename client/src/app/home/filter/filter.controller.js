@@ -4,9 +4,15 @@ angular.module('patientsApp')
 .controller('FilterCtrl', [
           '$scope', '$rootScope',
   function($scope,   $rootScope) {
-    $scope.searchTxt = $rootScope.searchTxt = '';
+    $rootScope.searchTxt = '';
+    $scope.searchTxt = '';
 
     $scope.filter = function() {
+      $rootScope.searchTxt = $scope.searchTxt;
+    };
+
+    $scope.clearFilter = function() {
+      $rootScope.searchTxt = $scope.searchTxt = '';
     };
   }
 ]);
