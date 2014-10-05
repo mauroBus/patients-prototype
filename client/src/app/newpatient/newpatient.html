@@ -1,20 +1,56 @@
 <section>
-  <div class="">
-    <input class="edit" ng-model="newPatient.name">
-    <input class="edit" ng-model="newPatient.lastName">
-    <input class="edit" ng-model="newPatient.dni">
-    <input class="edit" ng-model="newPatient.birthday">
-  </div>
-  <div class="">
-    <label>{{newPatient.name}}</label>
-    <label>{{newPatient.lastName}}</label>
-    <label>{{newPatient.dni}}</label>
-    <label>{{newPatient.birthday}}</label>
-  </div>
+  <form class="form-horizontal" role="form">
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Name</label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Name"
+          ng-model="newPatient.name">
+      </div>
+    </div>
 
-  <button class="create" ng-click="addPatient()">Add Patient</button>
-  <button class="cancel">
-    <a href="#/home">Cancel and Go Back</a>
-  </button>
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Last Name</label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Last Name"
+          ng-model="newPatient.lastName">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">DNI</label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="DNI"
+          ng-model="newPatient.dni">
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Birthday</label>
+      <div class="col-sm-10">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Birthday"
+          ng-model="newPatient.birthday">
+      </div>
+    </div>
+
+  </form>
+
+  <p class="bg-success" ng-show="successfulyCreated">The patient has been created!</p>
+
+  <div class="well">
+    <button class="create btn btn-primary btn-block" ng-click="addPatient()">Add Patient</button>
+    <button class="cancel btn btn-default btn-block" ng-click="go('/home')">Cancel and Go Back</button>
+  </div>
 
 </section>

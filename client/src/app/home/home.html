@@ -1,13 +1,13 @@
 <section ng-cloak>
-  <ul ng-show="patients.length">
+  <ul ng-show="patients.length" class="list-unstyled">
     <li ng-repeat="(id, patient) in patients | filter:statusFilter track by $index">
-      <div class="patient">
-        <label class="patient-name">{{patient.name}}</label>
-        <label class="patient-name">{{patient.lastName}}</label>
-        <label class="patient-name">{{patient.dni}}</label>
-        <label class="patient-name">{{patient.birthday}}</label>
+      <address class="patient">
+        <strong class="patient-name">{{patient.name}}</strong>
+        <div class="patient-name">{{patient.lastName}}</div>
+        <div class="patient-name">{{patient.dni}}</div>
+        <div class="patient-name">{{patient.birthday}}</div>
         <!-- <button class="destroy" ng-click="removePatient(id)"></button> -->
-      </div>
+      </address>
     </li>
   </ul>
 </section>

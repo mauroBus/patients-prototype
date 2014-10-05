@@ -2,8 +2,8 @@
 angular.module('patientsApp')
 
 .controller('NewPatientCtrl', [
-          '$scope', '$location', 'Patient',
-  function($scope,   $location,   Patient) {
+          '$scope', '$rootScope', '$location', 'Patient',
+  function($scope,   $rootScope,   $location,   Patient) {
     var scope = {
       newPatient: {
         name: '',
@@ -12,9 +12,23 @@ angular.module('patientsApp')
         birthday: ''
       },
 
+      successfulyCreated: false,
+
+      go: function(path) {
+        $location.path(path);
+      },
+
       addPatient: function() {
-        $scope.newPatient.id = Patient.save($scope.newPatient);
-        $scope.$parent.patients.push($scope.newPatient);
+        if (!$rootScope.patients) {
+          $rootScope.patients = [];
+        }
+
+        var newP = Patient.save($scope.newPatient);
+
+        newP.$promise.then(function() {
+          $rootScope.patients.push(newP);
+          $scope.successfulyCreated = true;
+        });
       }
     };
 

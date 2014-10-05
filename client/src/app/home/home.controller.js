@@ -2,13 +2,14 @@
 angular.module('patientsApp')
 
 .controller('HomeCtrl', [
-          '$scope', '$timeout', '$location', 'Patient',
-  function($scope,   $timeout,   $location, Patient) {
+          '$scope', '$rootScope', '$timeout', '$location', 'Patient',
+  function($scope,   $rootScope,   $timeout,   $location,   Patient) {
     var scope = {
-      patients: Patient.query(),
       newPatient: '',
       status: $location.search().q || ''
     };
+
+    $rootScope.patients = Patient.query();
 
     angular.extend($scope, scope);
   }
