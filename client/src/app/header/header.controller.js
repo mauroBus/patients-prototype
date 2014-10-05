@@ -28,10 +28,6 @@ angular.module('patientsApp')
 
       showAboutLink: function() {
         return $location.path() !== '/about';
-      },
-
-      go: function(path) {
-        $location.path(path);
       }
     };
 
