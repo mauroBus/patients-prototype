@@ -9,9 +9,7 @@ app.use(express.static('../client/dist'));
 //body parser for post method
 app.use(bodyParser.json());
 
-
 app.get('/api/patients', patients.listAllPatients);
-
 app.post('/api/patients', patients.addPatient);
 
 

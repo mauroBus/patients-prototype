@@ -7,18 +7,32 @@ module.exports = {
 
 	listAllPatients: function(req, res){
     	db.collection('patients').find().toArray(function (err, items) {
-        	res.json(items);
+            if (err) {
+                res.send({msg:'db error'});
+            }
+            
+            res.json(items);
     	});
 	},
 
 	addPatient:  function(req, res){
 		console.log('POST:');
 		console.log(req.body);
-    	db.collection('patients').insert(req.body, function(err, result){
-        	res.send(
-            	(err === null) ? { msg: 'success' } : { msg: 'error!' }
-        	);
-    	});
+
+        if (req.body && req.body.firstName && req.body.lastName && req.body.dni && req.body.dob) {
+            var dateParts = req.body.dob.split('-');
+            var date = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
+            if (date < new Date()){
+                db.collection('patients').insert(req.body, function(err, result){
+                    res.send( (err === null) ? { msg: 'success' } : { msg: 'db error!' });
+                });
+            } else {
+                res.send( { msg: 'error: future date of birth!' });
+            }
+        } else {
+            res.send( { msg: 'error: missing fields' });
+        }
+
 	}
 
 }
