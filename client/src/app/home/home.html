@@ -6,10 +6,10 @@
       ng-repeat="(id, patient) in patients | filter:searchTxt"
       class="list-group-item">
       <address class="patient">
-        <strong class="patient-name list-group-item-heading">{{patient.name}}</strong>
+        <strong class="patient-name list-group-item-heading">{{patient.firstName}}</strong>
         <div class="patient-name list-group-item-text">{{patient.lastName}}</div>
         <div class="patient-name list-group-item-text">{{patient.dni}}</div>
-        <div class="patient-name list-group-item-text">{{patient.birthday}}</div>
+        <div class="patient-name list-group-item-text">{{patient.dob}}</div>
         <!-- <button class="destroy" ng-click="removePatient(id)"></button> -->
       </address>
     </li>

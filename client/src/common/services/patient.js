@@ -7,10 +7,10 @@ angular.module('patientsApp.services', ['ngResource'])
     return $resource(Urls.patients, { id: '@id' }, {
       query: {
         method: 'GET',
-        isArray:true,
-        transformResponse: function(data, header) {
-          return angular.fromJson(data).patients;
-        }
+        isArray:true
+        // transformResponse: function(data, header) {
+        //   return angular.fromJson(data).patients;
+        // }
       }
     });
   }
