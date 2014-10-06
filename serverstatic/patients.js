@@ -6,8 +6,9 @@ var db = mongoskin.db('mongodb://@localhost:27017/mydb', {safe:true})
 module.exports = {
 
 	listAllPatients: function(req, res){
-    	db.collection('patients').find().toArray(function (err, items) {
+    	db.collection('patients').find({},{_id:0}).toArray(function (err, items) {
             if (err) {
+                console.log( err );
                 res.send({msg:'db error'});
             }
             
