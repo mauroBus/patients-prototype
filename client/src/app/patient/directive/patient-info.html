@@ -1,0 +1,14 @@
+<div>
+  <address class="patient">
+    <h2>Patient Info</h2>
+    <button
+      class="destroy btn btn-sm btn-danger pull-right"
+      ng-click="remove($index)">
+      <span class="glyphicon glyphicon-thumbs-down"></span>
+    </button>
+    <strong class="patient-name list-group-item-heading">{{patient.firstName}}</strong>
+    <div class="patient-name list-group-item-text">{{patient.lastName}}</div>
+    <div class="patient-name list-group-item-text">{{patient.dni}}</div>
+    <div class="patient-name list-group-item-text">{{patient.dob}}</div>
+  </address>
+</div>

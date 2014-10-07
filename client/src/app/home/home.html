@@ -4,7 +4,8 @@
   <ul ng-show="patients.length" class="list-unstyled list-group">
     <li
       ng-repeat="(id, patient) in patients | filter:searchTxt"
-      class="list-group-item">
+      class="list-group-item"
+      go url="/patient/{{patient.dni}}">
       <address class="patient">
         <strong class="patient-name list-group-item-heading">{{patient.firstName}}</strong>
         <div class="patient-name list-group-item-text">{{patient.lastName}}</div>
