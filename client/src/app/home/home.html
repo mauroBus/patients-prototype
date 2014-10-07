@@ -10,7 +10,9 @@
         <div class="patient-name list-group-item-text">{{patient.lastName}}</div>
         <div class="patient-name list-group-item-text">{{patient.dni}}</div>
         <div class="patient-name list-group-item-text">{{patient.dob}}</div>
-        <!-- <button class="destroy" ng-click="removePatient(id)"></button> -->
+        <button class="destroy btn btn-danger" ng-click="remove($index)">
+          <span class="glyphicon glyphicon-thumbs-down"></span>
+        </button>
       </address>
     </li>
   </ul>

@@ -7,7 +7,7 @@ angular.module('patientsApp.urlConfig', [])
 .service('Urls', ['mode', function (mode) {
   var urls = {
     mock: {
-      patients: 'mocks/patients/:id.json'
+      patients: 'mocks/patients.json'
     },
     dev: {
       // TODO: list of service urls...

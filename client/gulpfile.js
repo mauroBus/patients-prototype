@@ -193,6 +193,6 @@ gulp.task('serve', ['build'], function() {
     process.exit(1);
   }
 
-  shelljs.exec('ionic serve ' + config.serverPort + ' ' + config.livereloadPort)
-    .pipe(shelljs.exec('node ../serverstatic/server.js'));
+  shelljs.exec('ionic serve ' + config.serverPort + ' ' + config.livereloadPort);
+    // .pipe(shelljs.exec('node ../serverstatic/server.js'));
 });
