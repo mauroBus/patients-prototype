@@ -21,14 +21,18 @@ var argv = require('yargs').argv;
 var rename = require('gulp-rename');
 var runSequence = require('run-sequence');
 
+var shelljs = require('shelljs');
+
 
 // General Config:
 var config = {
   jsName: 'index',
-  dist: 'dist',
-  jsDist: 'dist/js',
-  cssDist: 'dist/css',
-  fontsDist: 'dist/fonts',
+  dist: 'www',
+  vendor: 'vendor',
+  jsDist: 'www/js',
+  cssDist: 'www/css',
+  fontsDist: 'www/fonts',
+  serverPort: 8080,
   livereloadPort: 12345
 };
 
@@ -104,21 +108,22 @@ gulp.task('build-css', function() {
 /***** Task: Copy Static *****/
 gulp.task('copy-static', function() {
   return merge(
-    gulp.src('vendor/bootstrap-css/css/*.css')
+    gulp.src(config.vendor + '/bootstrap-css/css/*.css')
         .pipe(gulp.dest(config.cssDist)),
-    gulp.src('vendor/bootstrap-css/fonts/*')
+    gulp.src(config.vendor + '/bootstrap-css/fonts/*')
         .pipe(gulp.dest(config.fontsDist)),
     gulp.src(['src/assets/**/*.*', '!src/assets/less/*.*'])
         .pipe(gulp.dest(config.dist)),
     merge(
       gulp.src([
-          'vendor/angular/angular.js',
-          'vendor/angular-route/angular-route.js',
-          'vendor/angular-resource/angular-resource.js'
+          config.vendor + '/angular/angular.js',
+          config.vendor + '/angular-route/angular-route.js',
+          config.vendor + '/angular-resource/angular-resource.js',
+          config.vendor + '/ionic/js/ionic.bundle.js'
         ])
         .pipe(concat('angular.js')),
-      gulp.src('vendor/angular-bootstrap/ui-bootstrap-tpls.js'),
-      gulp.src('vendor/jquery/dist/jquery.js')
+      gulp.src(config.vendor + '/angular-bootstrap/ui-bootstrap-tpls.js'),
+      gulp.src(config.vendor + '/jquery/dist/jquery.js')
     ).pipe(gulp.dest(config.jsDist))
   );
 });
@@ -144,7 +149,7 @@ gulp.task('watch', ['lint', 'build'], function() {
   livereload.listen(config.livereloadPort);
 
   gulp.watch('src/**/*.js', ['lint', 'build-js']);
-  gulp.watch('src/**/*.tpl.html', ['build-js']);
+  gulp.watch(['src/**/*.html', '!src/index.html'], ['build-js']);
   gulp.watch('src/index.html', ['build-index']);
   gulp.watch(['src/assets/**/*.*', '!src/assets/less/*.less'], ['copy-static']);
   gulp.watch([
@@ -175,3 +180,19 @@ gulp.task('default', [
   'lint',
   'build'
 ]);
+
+
+
+/***** Task: IONIC SERVE with PORT NUMBER *****/
+// alias for $ ionic serve [serverPort] [livereloadPort]
+gulp.task('serve', function(cbk) {
+  if (!shelljs.which('ionic')) {
+    console.log(
+      '  Ionic is not installed.',
+      '\n  - Please visit http://ionicframework.com/docs/guide/installation.html for Ionic istallation steps.');
+    process.exit(1);
+  }
+
+  shelljs.exec('ionic serve ' + config.serverPort + ' ' + config.livereloadPort)
+  .pipe(shelljs.exec('node ../serverstatic/server.js'));
+});

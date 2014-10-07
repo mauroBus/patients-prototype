@@ -1,14 +1,18 @@
 
-angular.module('todomvcApp')
+angular.module('patientsApp.services', ['ngResource'])
 
-.factory('Patient', ['$resource', function($resource) {
-  return $resource(serviceUrls.patients + '/:id', {
-      todoId: '@_id'
-    },
-    {
-      update: {
-        method: 'PUT'
+.factory('Patient', [
+          '$resource', 'Urls',
+  function($resource,   Urls) {
+    return $resource(Urls.patients, { id: '@id' }, {
+      query: {
+        method: 'GET',
+        isArray:true
+        // transformResponse: function(data, header) {
+        //   return angular.fromJson(data).patients;
+        // }
       }
-    }
-  );
-}]);
+    });
+  }
+]);
+

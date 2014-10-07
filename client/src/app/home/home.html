@@ -1,16 +1,17 @@
-<section id="main" ng-show="patients.length" ng-cloak>
-  <input id="toggle-all" type="checkbox" ng-model="allChecked" ng-click="markAll(allChecked)">
-  <label for="toggle-all">Mark all as complete</label>
-  <ul id="patient-list">
-    <li ng-repeat="(id, patient) in patients | filter:statusFilter track by $index" ng-class="{completed: patient.completed, editing: patient == editedPatient}">
-      <div class="view">
-        <input class="toggle" type="checkbox" ng-model="patient.completed" ng-change="patient.$update()">
-        <label ng-dblclick="editPatient(id)">{{patient.name}}</label>
-        <button class="destroy" ng-click="removePatient(id)"></button>
-      </div>
-      <form ng-submit="doneEditing(id)">
-        <input class="edit" ng-model="patient.name" patient-escape="revertEditing(id)" ng-blur="doneEditing(id)" patient-focus="patient == editedPatient">
-      </form>
+<section class="home" ng-cloak>
+  <div ng-include="'home/filter/filter.html'"></div>
+
+  <ul ng-show="patients.length" class="list-unstyled list-group">
+    <li
+      ng-repeat="(id, patient) in patients | filter:searchTxt"
+      class="list-group-item">
+      <address class="patient">
+        <strong class="patient-name list-group-item-heading">{{patient.firstName}}</strong>
+        <div class="patient-name list-group-item-text">{{patient.lastName}}</div>
+        <div class="patient-name list-group-item-text">{{patient.dni}}</div>
+        <div class="patient-name list-group-item-text">{{patient.dob}}</div>
+        <!-- <button class="destroy" ng-click="removePatient(id)"></button> -->
+      </address>
     </li>
   </ul>
 </section>

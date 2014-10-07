@@ -7,12 +7,16 @@
     "type": "git",
     "url": "https://github.com/mauroBus/patient-prototype.git"
   },
-  "author": "",
+  "author": "Mauro Buselli <mbuselli@devspark.com>",
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/mauroBus/patient-prototype/issues"
   },
   "homepage": "https://github.com/mauroBus/patient-prototype",
+  "dependencies": {
+    "bower": "^1.3.12",
+    "gulp": "~3.8.8"
+  },
   "devDependencies": {
     "bower": "^1.3.12",
     "gulp": "~3.8.8",
@@ -32,6 +36,7 @@
     "merge-stream": "~0.1.6",
     "rimraf": "~2.2.8",
     "run-sequence": "^1.0.0",
+    "shelljs": "^0.3.0",
     "yargs": "~1.3.1"
   }
 }
