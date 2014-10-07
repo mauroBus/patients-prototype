@@ -4,7 +4,7 @@ var app = express();
 var patients = require('./patients');
 
 //serving static files
-app.use(express.static('../client/dist'));
+app.use(express.static('../client/www'));
 
 //body parser for post method
 app.use(bodyParser.json());
