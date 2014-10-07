@@ -25,10 +25,11 @@ var runSequence = require('run-sequence');
 // General Config:
 var config = {
   jsName: 'index',
-  dist: 'dist',
-  jsDist: 'dist/js',
-  cssDist: 'dist/css',
-  fontsDist: 'dist/fonts',
+  dist: 'www',
+  vendor: 'vendor',
+  jsDist: 'www/js',
+  cssDist: 'www/css',
+  fontsDist: 'www/fonts',
   livereloadPort: 12345
 };
 
@@ -104,21 +105,22 @@ gulp.task('build-css', function() {
 /***** Task: Copy Static *****/
 gulp.task('copy-static', function() {
   return merge(
-    gulp.src('vendor/bootstrap-css/css/*.css')
+    gulp.src(config.vendor + '/bootstrap-css/css/*.css')
         .pipe(gulp.dest(config.cssDist)),
-    gulp.src('vendor/bootstrap-css/fonts/*')
+    gulp.src(config.vendor + '/bootstrap-css/fonts/*')
         .pipe(gulp.dest(config.fontsDist)),
     gulp.src(['src/assets/**/*.*', '!src/assets/less/*.*'])
         .pipe(gulp.dest(config.dist)),
     merge(
       gulp.src([
-          'vendor/angular/angular.js',
-          'vendor/angular-route/angular-route.js',
-          'vendor/angular-resource/angular-resource.js'
+          config.vendor + '/angular/angular.js',
+          config.vendor + '/angular-route/angular-route.js',
+          config.vendor + '/angular-resource/angular-resource.js',
+          config.vendor + '/ionic/js/ionic.bundle.js'
         ])
         .pipe(concat('angular.js')),
-      gulp.src('vendor/angular-bootstrap/ui-bootstrap-tpls.js'),
-      gulp.src('vendor/jquery/dist/jquery.js')
+      gulp.src(config.vendor + '/angular-bootstrap/ui-bootstrap-tpls.js'),
+      gulp.src(config.vendor + '/jquery/dist/jquery.js')
     ).pipe(gulp.dest(config.jsDist))
   );
 });
