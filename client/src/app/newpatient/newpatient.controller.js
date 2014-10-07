@@ -6,7 +6,7 @@ angular.module('patientsApp')
   function($scope,   $rootScope,   $location,   Patient) {
     var scope = {
       newPatient: {
-        name: '',
+        firstName: '',
         lastName: '',
         dni: '',
         dob: ''
