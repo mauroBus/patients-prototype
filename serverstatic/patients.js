@@ -41,6 +41,20 @@ module.exports = function(app){
         }
     });
 
+    app.delete('/api/patients/:dni',function (req, res, next) {
+        //prepare req for fetch function
+        req.patientDNI = req.params.dni;
+        next();
+    }, fetchPatientByDNI, function (req, res) {
+        if (req.patient) {
+            db.collection('patients').remove({dni:req.patientDNI}, function (err, result) {
+                res.send( (err === null) ? { msg: 'success' } : { msg: 'db error!' });
+            });
+        } else {
+            res.status(404).send('DNI not found');
+        }
+    });
+
     app.post('/api/patients', function(req, res, next){
         //logging request
 		console.log('POST:');
@@ -62,7 +76,7 @@ module.exports = function(app){
         } else {
             res.send( { msg: 'error: future date of birth!' });
         }
-    },function (req, res, next) {
+    }, function (req, res, next) {
         //prepare req for fetch function
         req.patientDNI = req.body.dni;
         next();
