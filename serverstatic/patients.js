@@ -1,7 +1,7 @@
 var mongoskin = require('mongoskin');
 
 //mongodb connection
-var db = mongoskin.db('mongodb://@localhost:27017/mydb', {safe:true})
+var db = mongoskin.db('mongodb://@localhost:27017/mydb', {safe:true, auto_reconnect: true});
 
 var fetchPatientByDNI = function(req, res, next){
     db.collection('patients').findOne({dni:req.patientDNI},{_id:0}, function (err, doc){
