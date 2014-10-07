@@ -9,7 +9,7 @@ angular.module('patientsApp')
         name: '',
         lastName: '',
         dni: '',
-        birthday: ''
+        dob: ''
       },
 
       successfulyCreated: false,
