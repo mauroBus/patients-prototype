@@ -5,16 +5,31 @@ var db = mongoskin.db('mongodb://@localhost:27017/mydb', {safe:true})
 
 module.exports = function(app){
 
-	app.get('/api/patients', function(req, res){
-    	db.collection('patients').find({},{_id:0}).toArray(function (err, items) {
+    app.get('/api/patients', function(req, res){
+        db.collection('patients').find({},{_id:0}).toArray(function (err, items) {
             if (err) {
                 console.log( err );
                 res.send({msg:'db error'});
             }
             
             res.json(items);
-    	});
-	});
+        });
+    });
+
+    app.get('/api/patients/:dni', function(req, res){
+        db.collection('patients').findOne({dni:req.params.dni},{_id:0}, function (err, doc){
+            if (err) {
+                console.log( err );
+                res.send({msg:'db error'});
+            }
+
+            if (doc) {
+                res.json(doc);
+            } else {
+                res.status(404).send('DNI not found');
+            }
+        });
+    });
 
     app.post('/api/patients', function(req, res, next){
         //logging request
@@ -43,5 +58,5 @@ module.exports = function(app){
                 res.send( (err === null) ? { msg: 'success' } : { msg: 'db error!' });
         });
     });
-    
+
 }
