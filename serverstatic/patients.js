@@ -3,6 +3,17 @@ var mongoskin = require('mongoskin');
 //mongodb connection
 var db = mongoskin.db('mongodb://@localhost:27017/mydb', {safe:true})
 
+var fetchPatientByDNI = function(req, res, next){
+    db.collection('patients').findOne({dni:req.params.dni},{_id:0}, function (err, doc){
+        if (err) {
+            console.log( err );
+            res.send({msg:'db error'});
+        }
+        req.patient = doc;
+        next();
+    });
+};
+
 module.exports = function(app){
 
     app.get('/api/patients', function(req, res){
@@ -16,19 +27,12 @@ module.exports = function(app){
         });
     });
 
-    app.get('/api/patients/:dni', function(req, res){
-        db.collection('patients').findOne({dni:req.params.dni},{_id:0}, function (err, doc){
-            if (err) {
-                console.log( err );
-                res.send({msg:'db error'});
-            }
-
-            if (doc) {
-                res.json(doc);
-            } else {
-                res.status(404).send('DNI not found');
-            }
-        });
+    app.get('/api/patients/:dni', fetchPatientByDNI, function (req, res) {
+        if (req.patient) {
+            res.json(req.patient);
+        } else {
+            res.status(404).send('DNI not found');
+        }
     });
 
     app.post('/api/patients', function(req, res, next){
