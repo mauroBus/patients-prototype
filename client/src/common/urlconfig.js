@@ -2,7 +2,7 @@
 angular.module('patientsApp.urlConfig', [])
 
 // mode: { 'mock' || 'dev' || 'prod' }
-.value('mode', 'dev')
+.value('mode', 'mock')
 
 .service('Urls', ['mode', function (mode) {
   var urls = {

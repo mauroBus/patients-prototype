@@ -21,6 +21,8 @@ var argv = require('yargs').argv;
 var rename = require('gulp-rename');
 var runSequence = require('run-sequence');
 
+var shelljs = require('shelljs');
+
 
 // General Config:
 var config = {
@@ -30,6 +32,7 @@ var config = {
   jsDist: 'www/js',
   cssDist: 'www/css',
   fontsDist: 'www/fonts',
+  serverPort: 8080,
   livereloadPort: 12345
 };
 
@@ -177,3 +180,11 @@ gulp.task('default', [
   'lint',
   'build'
 ]);
+
+
+
+/***** Task: IONIC SERVE with PORT NUMBER *****/
+// alias for $ ionic serve [serverPort] [livereloadPort]
+gulp.task('serve', function(cbk) {
+  return shelljs.exec('ionic serve ' + config.serverPort + ' ' + config.livereloadPort);
+});
