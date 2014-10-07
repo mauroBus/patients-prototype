@@ -7,7 +7,7 @@ var fetchPatientByDNI = function(req, res, next){
     db.collection('patients').findOne({dni:req.patientDNI},{_id:0}, function (err, doc){
         if (err) {
             console.log( err );
-            res.send({msg:'db error'});
+            res.status(500).send({msg:'db error'});
         } else {
             req.patient = doc;
             next();
@@ -15,46 +15,52 @@ var fetchPatientByDNI = function(req, res, next){
     });
 };
 
+
 module.exports = function(app){
 
+    //get all patients 
     app.get('/api/patients', function(req, res){
-        //get all patients
         db.collection('patients').find({},{_id:0}).toArray(function (err, items) {
             if (err) {
                 console.log( err );
-                res.send({msg:'db error'});
+                res.status(500).send({msg:'db error'});
             }
             
             res.json(items);
         });
     });
 
-    app.get('/api/patients/:dni', function (req, res, next) {
+    //for every request on this route will pre-fetch patient by DNI
+    //before calling a specific handler
+    app.use('/api/patients/:dni', function (req, res, next) {
         //prepare req for fetch function
         req.patientDNI = req.params.dni;
         next();
-    }, fetchPatientByDNI, function (req, res) {
+    }, fetchPatientByDNI, function (req, res, next) {
         if (req.patient) {
-            res.json(req.patient);
+            next();
         } else {
             res.status(404).send('DNI not found');
         }
     });
 
-    app.delete('/api/patients/:dni',function (req, res, next) {
-        //prepare req for fetch function
-        req.patientDNI = req.params.dni;
-        next();
-    }, fetchPatientByDNI, function (req, res) {
-        if (req.patient) {
-            db.collection('patients').remove({dni:req.patientDNI}, function (err, result) {
-                res.send( (err === null) ? { msg: 'success' } : { msg: 'db error!' });
-            });
-        } else {
-            res.status(404).send('DNI not found');
-        }
+    //returns patient data
+    app.get('/api/patients/:dni', function (req, res) {
+        res.json(req.patient);
     });
 
+    //deletes patient from collection
+    app.delete('/api/patients/:dni', function (req, res) {
+        db.collection('patients').remove({dni:req.patient.dni}, function (err, result) {
+            if (err) {
+                res.status(500).send({ msg: 'db error!' });
+            } else {
+                res.send({ msg: 'success' });
+            }
+        });
+    });
+
+    //adding a new patient to the collection
     app.post('/api/patients', function(req, res, next){
         //logging request
 		console.log('POST:');
@@ -65,7 +71,7 @@ module.exports = function(app){
         if (req.body && req.body.firstName && req.body.lastName && req.body.dni && req.body.dob) {
             next();
         } else {
-            res.send( { msg: 'error: missing fields' });
+            res.status(400).send( { msg: 'error: missing fields' });
         }
 	}, function(req, res, next) {
         //validating date of birth
@@ -74,7 +80,7 @@ module.exports = function(app){
         if (date < new Date()){
             next();
         } else {
-            res.send( { msg: 'error: future date of birth!' });
+            res.status(400).send( { msg: 'error: future date of birth!' });
         }
     }, function (req, res, next) {
         //prepare req for fetch function
@@ -83,14 +89,18 @@ module.exports = function(app){
     }, fetchPatientByDNI, function (req, res, next) {
         //check if DNI is already in use
         if (req.patient) {
-            res.send( { msg: 'error: dni already in use!' });
+            res.status(409).send( { msg: 'error: dni already in use!' });
         } else {
             next();
         }
     }, function (req, res, next){
         //adding patient to collection
         db.collection('patients').insert(req.body, function(err, result){
-                res.send( (err === null) ? { msg: 'success' } : { msg: 'db error!' });
+           if (err) {
+                res.status(500).send({ msg: 'db error!' });
+            } else {
+                res.send({ msg: 'success' });
+            }
         });
     });
 
