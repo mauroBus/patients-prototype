@@ -13,6 +13,8 @@ angular.module('patientsApp')
       },
 
       successfulyCreated: false,
+      unsuccessfulyCreated: false,
+
       cancelBtnTxt: 'Cancel and Go Back',
 
       addPatient: function() {
@@ -22,10 +24,15 @@ angular.module('patientsApp')
 
         var newP = Patient.save($scope.newPatient);
 
-        newP.$promise.then(function() {
-          $rootScope.patients.push(newP);
-          $scope.successfulyCreated = true;
-        });
+        newP.$promise.then(
+          function() { // success cbk
+            $rootScope.patients.push(newP);
+            $scope.successfulyCreated = true;
+          },
+          function() { // error cbk
+            $scope.unsuccessfulyCreated = true;
+          }
+        );
       }
     };
 

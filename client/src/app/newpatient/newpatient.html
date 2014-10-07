@@ -53,6 +53,13 @@
     <strong>Well done!</strong> The patient has been created!
   </div>
 
+  <div
+    class="alert alert-danger"
+    role="alert"
+    ng-show="unsuccessfulyCreated">
+    <strong>Hhoh!</strong> Got an error! check the fields and try it again...
+  </div>
+
   <div class="well">
     <button class="create btn btn-primary btn-block" ng-click="addPatient()">Add Patient</button>
     <button
