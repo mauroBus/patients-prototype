@@ -7,5 +7,11 @@ angular.module('patientsApp')
       'Jasmine',
       'NodeJS'
     ];
+
+    $scope.authors = {
+      backend: 'Gabriel Lopez <glopez@devspark.com>',
+      frontend: 'Mauro Buselli <mbuselli@devspark.com>',
+      testing: 'Lisandro Falconi <lfalconi@devspark.com>'
+    };
   }
 ]);
