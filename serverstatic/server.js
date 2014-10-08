@@ -9,7 +9,7 @@ app.use(express.static('../client/www'));
 app.use(bodyParser.json());
 
 //set up routes and handlers
-require('./patients')(app);
+app.use('/api', require('./patients')(express.Router()));
 
 //start app
 var server = app.listen(process.env.PORT || 8080, function() {
