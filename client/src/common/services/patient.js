@@ -18,6 +18,12 @@ angular.module('patientsApp.services', ['ngResource'])
         params: {
           dni: ''
         }
+      },
+      update: {
+        method: 'PUT',
+        params: {
+          dni: ''
+        }
       }
     });
   }

@@ -1,0 +1,106 @@
+<div class="patient-info">
+
+  <h2>
+    Patient Info
+    <button
+      class="destroy btn btn-sm btn-info"
+      ng-click="save()"
+      title="Save"
+      ng-show="editting">
+      <span class="glyphicon glyphicon-floppy-save"></span>
+    </button>
+
+    <button
+      class="destroy btn btn-sm btn-info"
+      ng-click="edit()"
+      title="Edit"
+      ng-hide="editting">
+      <span class="glyphicon glyphicon-pencil"></span>
+    </button>
+
+    <button
+      class="destroy btn btn-sm btn-info"
+      ng-click="cancelEdition()"
+      title="Cancel Edition"
+      ng-show="editting">
+      <span class="glyphicon glyphicon-share"></span>
+    </button>
+  </h2>
+
+  <form
+    class="form-horizontal"
+    role="form">
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Name</label>
+      <div class="col-sm-9">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Name"
+          ng-model="patient.firstName"
+          ng-show="editting">
+
+        <strong
+          class="patient-attr list-group-item-heading"
+          ng-hide="editting">
+            {{patient.firstName}}
+        </strong>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Last Name</label>
+      <div class="col-sm-9">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Last Name"
+          ng-model="patient.lastName"
+          ng-show="editting">
+
+        <div
+          class="patient-attr list-group-item-text"
+          ng-hide="editting">
+            {{patient.lastName}}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">DNI</label>
+      <div class="col-sm-9">
+<!--         <input
+          type="text"
+          class="form-control"
+          placeholder="DNI"
+          ng-model="patient.dni"
+          ng-show="editting">
+ -->
+        <div class="patient-attr list-group-item-text">
+            {{patient.dni}}
+        </div>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <label class="col-sm-2 control-label">Birthday</label>
+      <div class="col-sm-9">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Birthday"
+          ng-model="patient.dob"
+          ng-show="editting">
+
+        <div
+          class="patient-attr list-group-item-text"
+          ng-hide="editting">
+            {{patient.dni}}
+        </div>
+      </div>
+    </div>
+
+  </form>
+
+</div>
