@@ -67,7 +67,6 @@ module.exports = function(app){
         if (!req.changes) {
             return res.status(400).send( { msg: 'error: no fields to update' });
         }
-
         if (req.changes.dob && dobFromFuture(req.changes.dob)) {         
             return res.status(400).send( { msg: 'error: future date of birth!' });
         }
@@ -84,6 +83,10 @@ module.exports = function(app){
         if (req.body && req.body.firstName && req.body.lastName && req.body.dni && req.body.dob) {
             if (dobFromFuture(req.body.dob)) {
                 return res.status(400).send( { msg: 'error: future date of birth!' });
+            }
+            //matches any integer that does not start with zero A.K.A simple dni validation
+            if (! /^([1-9]\d*)$/.test(req.body.dni)) {
+                return res.status(400).send( { msg: 'error: invalid DNI' });    
             }
             next();
         } else {
