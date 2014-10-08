@@ -1,0 +1,13 @@
+{
+    "name" : "patientsTest",
+    "version" : "1.0.0",
+    "description": "",
+    "devDependencies" : {
+        "jasmine-node" : "~1.14.3",
+        "mongoskin": "1.4.4",
+        "request":"2.45.0"
+    },
+    "scripts" : {
+        "test" : "jasmine-node spec --color --verbose"
+    }
+}
