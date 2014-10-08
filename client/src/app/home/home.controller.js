@@ -5,11 +5,13 @@ angular.module('patientsApp')
           '$scope', '$rootScope', '$timeout', '$location', 'Patient',
   function($scope,   $rootScope,   $timeout,   $location,   Patient) {
     var scope = {
-      remove: function(index) {
+      remove: function(index, $event) {
         var patientToRem = $rootScope.patients[index];
         Patient.delete({dni: patientToRem.dni}, function() { // success cbk
           $rootScope.patients.splice(index, 1);
         });
+
+        $event.stopPropagation();
       }
     };
 

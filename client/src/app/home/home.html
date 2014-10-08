@@ -11,9 +11,16 @@
         <div class="patient-name list-group-item-text">{{patient.lastName}}</div>
         <div class="patient-name list-group-item-text">{{patient.dni}}</div>
         <div class="patient-name list-group-item-text">{{patient.dob}}</div>
-        <button class="destroy btn btn-danger" ng-click="remove($index)">
+
+        <button class="destroy btn btn-danger" ng-click="remove($index, $event)">
           <span class="glyphicon glyphicon-thumbs-down"></span>
         </button>
+        <button
+          class="btn btn-primary"
+          go url="/patient/{{patient.dni}}">
+          <span class="glyphicon glyphicon-eye-open"></span>
+        </button>
+
       </address>
     </li>
   </ul>
