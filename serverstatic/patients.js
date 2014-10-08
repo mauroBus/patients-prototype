@@ -44,15 +44,52 @@ module.exports = function(app){
         }
     });
 
-    //returns patient data
+    //return patient data
     app.get('/api/patients/:dni', function (req, res) {
         res.json(req.patient);
     });
 
-    //deletes patient from collection
+    //delete patient from collection
     app.delete('/api/patients/:dni', function (req, res) {
         db.collection('patients').remove({dni:req.patient.dni}, function (err, result) {
             if (err) {
+                res.status(500).send({ msg: 'db error!' });
+            } else {
+                res.send({ msg: 'success' });
+            }
+        });
+    });
+
+    //update values 
+    app.put('/api/patients/:dni', function (req, res, next) {
+        var fields = ['firstName','lastName','dob'];
+        for ( var index = 0; index < fields.length; ++index) {
+            var field = fields[index];
+            if (req.body[field]) {
+                var changes = req.changes || {};
+                changes[field]=req.body[field];
+                req.changes = changes;
+            }
+        }
+
+        if (req.changes) {
+            next();
+        } else {
+            res.status(400).send( { msg: 'error: no fields to update' });
+        }
+    }, function (req, res, next) {
+        if (req.changes.dob) {         
+            var dateParts = req.changes.dob.split('-');
+            var date = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
+            if (date > new Date()){
+                return res.status(400).send( { msg: 'error: future date of birth!' });
+            }
+        }
+        next();
+    }, function (req, res) {
+        db.collection('patients').update({dni: req.patient.dni}, { $set : req.changes } , function (err, result) {
+            if (err) {
+                console.log(err);
                 res.status(500).send({ msg: 'db error!' });
             } else {
                 res.send({ msg: 'success' });
@@ -103,5 +140,4 @@ module.exports = function(app){
             }
         });
     });
-
-}
+};
