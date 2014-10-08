@@ -19,9 +19,10 @@ var dobFromFuture = function(dob) {
     return ( date > new Date() ) ? true : false;
 };
 
+//decorates a router/app with patient related sub-routes
 module.exports = function(app){
     //get all patients 
-    app.get('/api/patients', function(req, res){
+    app.get('/patients', function(req, res){
         db.patients.getAll(genericDBCallback(res, function (res, items) {
             res.json(items);
         }));
@@ -29,7 +30,7 @@ module.exports = function(app){
 
     //for every request on this route will pre-fetch patient by DNI
     //before calling a specific handler
-    app.use('/api/patients/:dni', function (req, res, next) {
+    app.use('/patients/:dni', function (req, res, next) {
         db.patients.getByDNI(req.params.dni, genericDBCallback(res, function (res, doc) {
             if (!doc) {
                 return res.status(404).send('DNI not found');
@@ -40,19 +41,19 @@ module.exports = function(app){
     });
 
     //return patient data
-    app.get('/api/patients/:dni', function (req, res) {
+    app.get('/patients/:dni', function (req, res) {
         res.json(req.patient);
     });
 
     //delete patient from collection
-    app.delete('/api/patients/:dni', function (req, res) {
+    app.delete('/patients/:dni', function (req, res) {
         db.patients.delete(req.patient.dni, genericDBCallback(res, function () { 
             res.send({ msg: 'success' });
         }));
     });
 
     //update values 
-    app.put('/api/patients/:dni', function (req, res, next) {
+    app.put('/patients/:dni', function (req, res, next) {
         //check which fields should be updated
         var fields = ['firstName','lastName','dob'];
         for ( var index = 0; index < fields.length; ++index) {
@@ -78,7 +79,7 @@ module.exports = function(app){
     });
 
     //adding a new patient to the collection
-    app.post('/api/patients',  function(req, res, next) {
+    app.post('/patients',  function(req, res, next) {
         //validating patient
         if (req.body && req.body.firstName && req.body.lastName && req.body.dni && req.body.dob) {
             if (dobFromFuture(req.body.dob)) {
@@ -98,4 +99,6 @@ module.exports = function(app){
     }, function (req, res, next){
         db.patients.add(req.body, genericDBCallback(res, function (res) { res.send({ msg: 'success' });} ));
     });
+
+    return app;
 };
