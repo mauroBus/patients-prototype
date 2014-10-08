@@ -36,6 +36,23 @@ This node project provides means to manage patient information through a simple 
 
 ##Deployment  
 
-
+1. set up mongo  
+2. install dependencies  
+   ```
+   npm install
+   ```
+3. run  
+   ```
+   npm server.js
+   ```
+   
 ##Known Issues
 
+
+##Future work  
+
+  * Include an access logger [https://github.com/expressjs/morgan]  
+  
+  * Improve error handling [https://github.com/expressjs/errorhandler]  
+  
+  * Authenticate users [http://passportjs.org/]
