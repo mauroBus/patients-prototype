@@ -16,7 +16,7 @@ This node project provides means to manage patient information through a simple 
   returns a JSON list of all patients in the system.
 
 * POST /api/patients  
-  Requires header: 'Content-Type: application/json'  
+  Expects header: 'Content-Type: application/json'  
   Expects to receive a JSON with containing all the patient information, if it passes the validation will be persisted.  
   Returns 409 if provided DNI is already in use.  
   Returns 404 if some field fail its validation.  
@@ -28,8 +28,14 @@ This node project provides means to manage patient information through a simple 
   deletes a patient information or returns 404 if provided dni doesnt match with any patient.  
 
 * PUT /api/patients/{dni}  
-  Requires header: 'Content-Type: application/json'  
+  Expects header: 'Content-Type: application/json'  
   Updates a patient information with the data provided in the request body. Valid field to update are firstName, lastName, and dob, any other filed on the request body will be ingnored.  
   New values are subject to the same validation as add new patient, returning 400 if any of them fails.  
   Returns 404 if provided dni doesnt match with any patient.  
+
+
+##Deployment  
+
+
+##Known Issues
 
