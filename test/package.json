@@ -8,6 +8,6 @@
         "request":"2.45.0"
     },
     "scripts" : {
-        "test" : "jasmine-node spec --color --verbose"
+        "test" : "jasmine-node spec --color --verbose --captureExceptions --forceexit"
     }
 }
