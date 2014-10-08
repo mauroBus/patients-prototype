@@ -3,7 +3,7 @@
   <h2>
     Patient Info
     <button
-      class="destroy btn btn-sm btn-info"
+      class="destroy btn btn-sm btn-success"
       ng-click="save()"
       title="Save"
       ng-show="editting">
@@ -19,7 +19,7 @@
     </button>
 
     <button
-      class="destroy btn btn-sm btn-info"
+      class="destroy btn btn-sm btn-warning"
       ng-click="cancelEdition()"
       title="Cancel Edition"
       ng-show="editting">
@@ -41,11 +41,11 @@
           ng-model="patient.firstName"
           ng-show="editting">
 
-        <strong
-          class="patient-attr list-group-item-heading"
+        <div
+          class="patient-attr patient-name list-group-item-heading"
           ng-hide="editting">
             {{patient.firstName}}
-        </strong>
+        </div>
       </div>
     </div>
 
@@ -96,7 +96,7 @@
         <div
           class="patient-attr list-group-item-text"
           ng-hide="editting">
-            {{patient.dni}}
+            {{patient.dob}}
         </div>
       </div>
     </div>

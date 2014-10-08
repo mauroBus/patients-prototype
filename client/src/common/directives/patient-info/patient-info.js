@@ -18,7 +18,7 @@ angular.module('patientsApp')
           firstName: scope.patient.firstName,
           lastName: scope.patient.lastName,
           dni: scope.patient.dni,
-          dobscope: scope.patient.dob
+          dob: scope.patient.dob
         };
       };
 

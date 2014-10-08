@@ -96,7 +96,8 @@ gulp.task('build-js', function() {
 gulp.task('build-css', function() {
   return gulp.src([
       './src/assets/less/app.less',
-      './src/app/**/*.less'
+      './src/app/**/*.less',
+      './src/common/directives/**/*.less'
     ])
     .pipe(concat('styles.css'))
     .pipe(less()) // {paths: [ path.join(__dirname, 'less', 'includes') ]}
@@ -154,7 +155,8 @@ gulp.task('watch', ['lint', 'build'], function() {
   gulp.watch(['src/assets/**/*.*', '!src/assets/less/*.less'], ['copy-static']);
   gulp.watch([
       'src/assets/less/*.less',
-      'src/app/**/*.less'
+      'src/app/**/*.less',
+      'src/common/directives/**/*.less'
     ],
     [
       'build-css'
