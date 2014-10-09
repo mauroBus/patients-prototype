@@ -110,8 +110,8 @@ Inside the src folder resides the source code of the web application. The folder
 ```
 src/
 |-- index.html
-|-- app/
-|   |-- app.js
+|-- app/                   <-- Container for all the views and modules
+|   |-- app.js             <-- Main application file that setup the main module.
 |   |-- about/
 |   |   |-- about.js
 |   |   |-- about.html
@@ -122,27 +122,35 @@ src/
 |   |   |-- home.html
 |   |   |-- home.controller.js
 |   |   |-- styles.less
-|-- assets/
-|   |-- img/
-|   |-- less/
+|   |-- ...                <-- Other application views.
+|-- assets/                <-- LESS / Images / mocks files.
+|   |-- img/               <-- App images container.
+|   |-- less/              <-- App LESS styles container.
 |   |   | -- /app.less
-|   |-- mocks/
+|   |-- mocks/             <-- Service mocks container
 |   |   | -- patients.json
-|-- common/
-|   |-- urlconfig.js
+|-- common/                <-- Common directives / services / views that are shared in the whole app.
+|   |-- urlconfig.js       <-- Module to configurate the backend services url's. It allows modes to switch between real url services ('dev') or usign the mocks json files ('mock').
 |   |-- directives/
 |   |   |-- go/
+|   |   |   | ...
+|   |   |-- patient-info/
+|   |   |   |-- patient-info.html
+|   |   |   |-- patient-info.js
+|   |   |   |-- styles.less
 |   |   |-- .../
 |   |-- services/
 |   |   |-- patient.js
+|   |   |-- ...
 ```
-
-* `app/` This folder contains all the views and modules
-* `app/app.js` This is the main app file. It setup the main app module.
 
 ### Build
 
 The default Gulp task `gulp default` will build (checks the javascript (lint), and builds distributable files).
+* `build` command execute: `build-index`, `build-js` and `build-css` sub commands.
+* `build-index` generate the index.html file.
+* `build-js` generate a index.js file with all the contents of the app. This file contains a cache with all the html templates.
+* `build-index` generate the index.html file.
 
 ### Continuous Building
 The watch gulp task will monitor the source files and run the default build task every time a file changes: `gulp watch`.
