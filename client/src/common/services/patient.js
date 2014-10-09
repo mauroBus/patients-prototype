@@ -8,10 +8,14 @@ angular.module('patientsApp.services', ['ngResource'])
       query: {
         method: 'GET',
         isArray:true,
-        params: {}
-        // transformResponse: function(data, header) {
-        //   return angular.fromJson(data).patients;
-        // }
+        params: {},
+        transformResponse: function(data, header) {
+          var jsonData = angular.fromJson(data);
+          jsonData.forEach(function(patient){
+            patient.dob = new Date(patient.dob);
+          });
+          return jsonData;
+        }
       },
       save: {
         method: 'POST',
@@ -23,6 +27,14 @@ angular.module('patientsApp.services', ['ngResource'])
         method: 'PUT',
         params: {
           dni: ''
+        }
+      },
+      get: {
+        method: 'GET',
+        transformResponse: function(data, header) {
+          var patient = angular.fromJson(data);
+          patient.dob = new Date(patient.dob);
+          return patient;
         }
       }
     });

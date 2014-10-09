@@ -28,12 +28,16 @@ angular.module('patientsApp')
           function() { // success cbk
             $rootScope.patients.push(newP);
             $scope.successfulyCreated = true;
+            $scope.unsuccessfulyCreated = false;
           },
           function() { // error cbk
             $scope.unsuccessfulyCreated = true;
+            $scope.successfulyCreated = false;
           }
         );
-      }
+      },
+
+      today: new Date()
     };
 
     angular.extend($scope, scope);

@@ -34,13 +34,20 @@
     </div>
 
     <div class="form-group">
-      <label class="col-sm-2 control-label">Birthday</label>
-      <div class="col-sm-9">
-        <input
+      <label class="col-sm-2 control-label">Birth Day</label>
+      <div class="col-sm-9 centered">
+        <!-- <input
           type="text"
           class="form-control"
           placeholder="Birthday"
           ng-model="newPatient.dob">
+ -->
+        <datepicker
+          ng-model="newPatient.dob"
+          max-date="today"
+          show-weeks="true"
+          class="datepicker">
+        </datepicker>
       </div>
     </div>
 

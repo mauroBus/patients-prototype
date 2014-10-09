@@ -1,4 +1,5 @@
 angular.module('patientsApp', [
+  'ui.bootstrap',
   'patientsApp.services',
   'patientsApp.urlConfig',
   'ngRoute',
