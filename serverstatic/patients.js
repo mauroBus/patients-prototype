@@ -13,11 +13,12 @@ var genericDBCallback = function (res, callback) {
     };
 };
 
-var dobFromFuture = function(dob) {
+var parseDoB = function (dob) {
     var dateParts = dob.split('-');
     var date = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
-    return ( date > new Date() ) ? true : false;
+    return ( isNaN( date.getTime() ) ) ? null : date;
 };
+
 
 //decorates a router/app with patient related sub-routes
 module.exports = function(app){
@@ -67,8 +68,14 @@ module.exports = function(app){
         if (!req.changes) {
             return res.status(400).send( { msg: 'error: no fields to update' });
         }
-        if (req.changes.dob && dobFromFuture(req.changes.dob)) {         
-            return res.status(400).send( { msg: 'error: future date of birth!' });
+        if (req.changes.dob) {    
+            var dob = parseDoB(req.changes.dob);
+            if (!dob) {
+                return res.status(400).send( { msg: 'error: date format' });
+            }   
+            if (dob > new Date()) { 
+                return res.status(400).send( { msg: 'error: future date of birth!' });
+            }
         }
         next();
     }, function (req, res) {
@@ -81,9 +88,14 @@ module.exports = function(app){
     app.post('/patients',  function(req, res, next) {
         //validating patient
         if (req.body && req.body.firstName && req.body.lastName && req.body.dni && req.body.dob) {
-            if (dobFromFuture(req.body.dob)) {
+            var dob = parseDoB(req.body.dob);
+            if (!dob) {
+                return res.status(400).send( { msg: 'error: date format' });
+            }   
+            if (dob > new Date()) { 
                 return res.status(400).send( { msg: 'error: future date of birth!' });
             }
+
             //matches any integer that does not start with zero A.K.A simple dni validation
             if (! /^([1-9]\d*)$/.test(req.body.dni)) {
                 return res.status(400).send( { msg: 'error: invalid DNI' });    
