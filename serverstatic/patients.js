@@ -1,30 +1,12 @@
 var db = require('./patientsDAO');
-
-var genericDBCallback = function (res, callback) {
-    return function (err, result) {
-        if (err) {
-            console.log( err );
-            return res.status(500).send({ msg: 'db error!' });
-        } 
-
-        if (callback) {
-            callback(res, result);
-        }
-    };
-};
-
-var parseDoB = function (dob) {
-    var dateParts = dob.split('-');
-    var date = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
-    return ( isNaN( date.getTime() ) ) ? null : date;
-};
+var ut = require('./utilities');
 
 
 //decorates a router/app with patient related sub-routes
 module.exports = function(app){
     //get all patients 
     app.get('/patients', function(req, res){
-        db.patients.getAll(genericDBCallback(res, function (res, items) {
+        db.patients.getAll(ut.genericDBCallback(res, function (res, items) {
             res.json(items);
         }));
     });
@@ -32,7 +14,7 @@ module.exports = function(app){
     //for every request on this route will pre-fetch patient by DNI
     //before calling a specific handler
     app.use('/patients/:dni', function (req, res, next) {
-        db.patients.getByDNI(req.params.dni, genericDBCallback(res, function (res, doc) {
+        db.patients.getByDNI(req.params.dni, ut.genericDBCallback(res, function (res, doc) {
             if (!doc) {
                 return res.status(404).send('DNI not found');
             }
@@ -48,7 +30,7 @@ module.exports = function(app){
 
     //delete patient from collection
     app.delete('/patients/:dni', function (req, res) {
-        db.patients.delete(req.patient.dni, genericDBCallback(res, function () { 
+        db.patients.delete(req.patient.dni, ut.genericDBCallback(res, function () { 
             res.send({ msg: 'success' });
         }));
     });
@@ -56,20 +38,13 @@ module.exports = function(app){
     //update values 
     app.put('/patients/:dni', function (req, res, next) {
         //check which fields should be updated
-        var fields = ['firstName','lastName','dob'];
-        for ( var index = 0; index < fields.length; ++index) {
-            var field = fields[index];
-            if (req.body[field]) {
-                var changes = req.changes || {};
-                changes[field]=req.body[field];
-                req.changes = changes;
-            }
-        }
+        req.changes = ut.extractFields(req.body,['firstName','lastName','dob'],false);
+        
         if (!req.changes) {
             return res.status(400).send( { msg: 'error: no fields to update' });
         }
         if (req.changes.dob) {    
-            var dob = parseDoB(req.changes.dob);
+            var dob = ut.parseDoB(req.changes.dob);
             if (!dob) {
                 return res.status(400).send( { msg: 'error: date format' });
             }   
@@ -79,16 +54,18 @@ module.exports = function(app){
         }
         next();
     }, function (req, res) {
-        db.patients.set(req.patient.dni, req.changes, genericDBCallback(res, function (res) { 
+        db.patients.set(req.patient.dni, req.changes, ut.genericDBCallback(res, function (res) { 
             res.send({ msg: 'success' });
         }));
     });
 
     //adding a new patient to the collection
     app.post('/patients',  function(req, res, next) {
+
+        newPatient = ut.extractFields(req.body,['firstName','lastName','dob','dni'],true);
         //validating patient
-        if (req.body && req.body.firstName && req.body.lastName && req.body.dni && req.body.dob) {
-            var dob = parseDoB(req.body.dob);
+        if (newPatient)  {
+            var dob = ut.parseDoB(newPatient.dob);
             if (!dob) {
                 return res.status(400).send( { msg: 'error: date format' });
             }   
@@ -97,22 +74,23 @@ module.exports = function(app){
             }
 
             //matches any integer that does not start with zero A.K.A simple dni validation
-            if (! /^([1-9]\d*)$/.test(req.body.dni)) {
+            if (! /^([1-9]\d*)$/.test(newPatient.dni)) {
                 return res.status(400).send( { msg: 'error: invalid DNI' });    
             }
+            req.newPatient=newPatient;
             next();
         } else {
             return res.status(400).send( { msg: 'error: missing fields' });
         }
 	}, function (req, res, next) {
-        db.patients.getByDNI(req.body.dni, genericDBCallback(res, function (res, doc) {
+        db.patients.getByDNI(req.newPatient.dni, ut.genericDBCallback(res, function (res, doc) {
             if (doc) {
                 return res.status(409).send( { msg: 'error: dni already in use!' });
             }
             next();
         }));
     }, function (req, res, next){
-        db.patients.add(req.body, genericDBCallback(res, function (res) { res.send({ msg: 'success' });} ));
+        db.patients.add(req.newPatient, ut.genericDBCallback(res, function (res) { res.send({ msg: 'success' });} ));
     });
 
     return app;
