@@ -185,9 +185,13 @@ gulp.task('default', [
 
 
 
+gulp.task('start-server', function() {
+  shelljs.exec('node ../serverstatic/server.js');
+});
+
 /***** Task: IONIC SERVE with PORT NUMBER *****/
 // alias for $ ionic serve [serverPort] [livereloadPort]
-gulp.task('serve', ['build'], function() {
+gulp.task('serve', ['build', 'start-server'], function() {
   if (!shelljs.which('ionic')) {
     console.log(
       '  Ionic is not installed.',
@@ -196,5 +200,4 @@ gulp.task('serve', ['build'], function() {
   }
 
   shelljs.exec('ionic serve ' + config.serverPort + ' ' + config.livereloadPort);
-    // .pipe(shelljs.exec('node ../serverstatic/server.js'));
 });
