@@ -36,10 +36,13 @@ This node project provides means to manage patient information through a simple 
 
 ##Deployment  
 
-1. set up mongo to serve a db at   _localhost:27017/mydb_
-2. install dependencies  
+1. install dependencies  
    ```
    npm install
+   ```
+2. _Optional_ By default server will look for Mongo on  _'localhost:27017/mydb'_ ,  this can be changed by setting the DB_CONF environment variable.  
+   ```
+   SET DB_CONF=mongodb://@10.0.0.9:2729/dev
    ```
 3. run  
    ```
