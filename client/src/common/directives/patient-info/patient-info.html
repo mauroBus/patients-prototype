@@ -84,19 +84,25 @@
     </div>
 
     <div class="form-group">
-      <label class="col-sm-2 control-label">Birthday</label>
+      <label class="col-sm-2 control-label">Birth Day</label>
       <div class="col-sm-9">
-        <input
+        <!-- <input
           type="text"
           class="form-control"
           placeholder="Birthday"
           ng-model="patient.dob"
+          ng-show="editting"> -->
+        <datepicker
+          ng-model="patient.dob"
+          max-date="today"
+          show-weeks="true"
+          class="datepicker center-block"
           ng-show="editting">
-
+        </datepicker>
         <div
           class="patient-attr list-group-item-text"
           ng-hide="editting">
-            {{patient.dob}}
+            {{patient.dob | date:"MM/dd/yyyy"}}
         </div>
       </div>
     </div>

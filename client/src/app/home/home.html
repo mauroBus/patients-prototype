@@ -5,12 +5,13 @@
     <li
       ng-repeat="(id, patient) in patients | filter:searchTxt"
       class="list-group-item"
-      go url="/patient/{{patient.dni}}">
+      go url="/patient/{{patient.dni}}"
+      collapse="false">
       <address class="patient">
         <strong class="patient-name list-group-item-heading">{{patient.firstName}}</strong>
         <div class="patient-name list-group-item-text">{{patient.lastName}}</div>
         <div class="patient-name list-group-item-text">{{patient.dni}}</div>
-        <div class="patient-name list-group-item-text">{{patient.dob}}</div>
+        <div class="patient-name list-group-item-text">{{patient.dob | date:"MM/dd/yyyy"}}</div>
 
         <div class="controllers">
           <button

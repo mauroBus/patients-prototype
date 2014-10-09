@@ -2,8 +2,8 @@
 angular.module('patientsApp')
 
 .controller('HeaderCtrl', [
-          '$scope', '$location',
-  function($scope,   $location) {
+          '$scope', '$location', '$routeParams',
+  function($scope,   $location,   $routeParams) {
     var scope = {
 
       subPageName: function() {
@@ -15,6 +15,9 @@ angular.module('patientsApp')
         }
         if ($location.path() === '/about') {
           return 'About Page';
+        }
+        if ($routeParams.dni) {
+          return 'Patient dni:' + $routeParams.dni + ' Info';
         }
       },
 

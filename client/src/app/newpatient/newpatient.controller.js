@@ -29,6 +29,10 @@ angular.module('patientsApp')
             $rootScope.patients.push(newP);
             $scope.successfulyCreated = true;
             $scope.unsuccessfulyCreated = false;
+            $scope.newPatient.firstName = '';
+            $scope.newPatient.lastName = '';
+            $scope.newPatient.dni = '';
+            $scope.newPatient.dob = '';
           },
           function() { // error cbk
             $scope.unsuccessfulyCreated = true;
