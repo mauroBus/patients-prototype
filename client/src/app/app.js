@@ -3,6 +3,7 @@ angular.module('patientsApp', [
   'patientsApp.services',
   'patientsApp.urlConfig',
   'ngRoute',
+  'ngAnimate',
   'templates.app',
   'templates.common',
   'ionic'
