@@ -1,4 +1,4 @@
-# Angular and Cordova (Ionic) FrontEnd
+# Angular and Cordova (with Ionic framework) FrontEnd
 
 This project is an application skeleton trying to be a proposal to set up a complex [AngularJS](http://angularjs.org/) web app using [Ionic](http://ionicframework.com/) and [Cordova](http://cordova.apache.org/) to develop with native mobile support.
 The main idea is to use it to quickly bootstrap the Angular & Cordova webapp projects and dev environment for native mobile projects.
@@ -80,30 +80,72 @@ That's all what we need to see the application running. In the next section I ex
 ## Development
 
 ### Folders structure
-In  the client level, the main folder contains all the client-side Ionic and AngularJS application with the following structure:
+In  the client level, the main folder contains basically the Cordova directory structure:
+```
+client/
+|-- config.xml
+|-- hooks/
+|-- node_modules/
+|-- src/
+|-- www/
+|-- vendor/
+|-- platforms/
+|   |-- android/
+|   |-- ios/
+|-- plugins/
+|-- scss/
+```
+
+* `config.xml` Cordova application's metadata.
 * `node_modules` contains build tasks for Gulp along with other, user-installed, Node packages.
 * `www` contains the build results.
-* `src` contains application's sources.
+* `src` contains the application's sources (js/html/css files).
 * `vendor` contains external dependencies for the source code of the application.
-* ``
+* `hooks` Cordova folder that contains scripts used to customize cordova commands.
+* `platforms` Cordova folder with native application platforms.
+* `plugins` Any added plugins for Cordova.
+* `scss` Ionic folder intended to overwrite the sass styles used by default for Ionic framework.
 
-### Default Build
-The default grunt task will build (checks the javascript (lint), runs the unit tests (test:unit) and builds distributable files) and run all unit tests: `grunt` (or `grunt.cmd` on Windows).  The tests are run by karma and need one or more browsers open to actually run the tests.
-* `cd client`
-* `grunt`
-* Open one or more browsers and point them to [http://localhost:8080/__test/].  Once the browsers connect the tests will run and the build will complete.
-* If you leave the browsers open at this url then future runs of `grunt` will automatically run the tests against these browsers.
+Inside the src folder resides the source code of the web application. The folder structure look like this:
+```
+src/
+|-- index.html
+|-- app/
+|   |-- app.js
+|   |-- about/
+|   |   |-- about.js
+|   |   |-- about.html
+|   |   |-- about.controller.js
+|   |   |-- styles.less
+|   |-- home/
+|   |   |-- home.js
+|   |   |-- home.html
+|   |   |-- home.controller.js
+|   |   |-- styles.less
+|-- assets/
+|   |-- img/
+|   |-- less/
+|   |   | -- /app.less
+|   |-- mocks/
+|   |   | -- patients.json
+|-- common/
+|   |-- urlconfig.js
+|   |-- directives/
+|   |   |-- go/
+|   |   |-- .../
+|   |-- services/
+|   |   |-- patient.js
+```
+
+* `app/` This folder contains all the views and modules
+* `app/app.js` This is the main app file. It setup the main app module.
+
+### Build
+
+The default Gulp task `gulp default` will build (checks the javascript (lint), and builds distributable files).
 
 ### Continuous Building
-The watch grunt task will monitor the source files and run the default build task every time a file changes: `grunt watch`.
-
-### Build without tests
-If for some reason you don't want to run the test but just generate the files - not a good idea(!!) - you can simply run the build task: `grunt build`.
+The watch gulp task will monitor the source files and run the default build task every time a file changes: `gulp watch`.
 
 ### Building release code
-You can build a release version of the app, with minified files.  This task will also run the "end to end" (e2e) tests.
-The e2e tests require the server to be started and also one or more browsers open to run the tests.  (You can use the same browsers as for the unit tests.)
-* `cd client`
-* Run `grunt release`
-* Open one or more browsers and point them to [http://localhost:8080/__test/].  Once the browsers connect the tests will run and the build will complete.
-* If you leave the browsers open at this url then future runs of `grunt` will automatically run the tests against these browsers.
+You can build a release version of the app, with minified files. The gulp task to do it is `gulp build --production`.
