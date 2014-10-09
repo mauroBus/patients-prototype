@@ -100,7 +100,7 @@ client/
 * `node_modules` contains build tasks for Gulp along with other, user-installed, Node packages.
 * `www` contains the build results.
 * `src` contains the application's sources (js/html/css files).
-* `vendor` contains external dependencies for the source code of the application.
+* `vendor` contains external dependencies (Bower destination folder) for the application's source code.
 * `hooks` Cordova folder that contains scripts used to customize cordova commands.
 * `platforms` Cordova folder with native application platforms.
 * `plugins` Any added plugins for Cordova.
@@ -109,7 +109,7 @@ client/
 Inside the src folder resides the source code of the web application. The folder structure look like this:
 ```
 src/
-|-- index.html
+|-- index.html             <-- App layout file (the main html template file of the app).
 |-- app/                   <-- Container for all the views and modules
 |   |-- app.js             <-- Main application file that setup the main module.
 |   |-- about/
@@ -153,7 +153,22 @@ The default Gulp task `gulp default` will build (checks the javascript (lint), a
 * `build-index` generate the index.html file.
 
 ### Continuous Building
-The watch gulp task will monitor the source files and run the default build task every time a file changes: `gulp watch`.
+The watch gulp task will monitor the source files and, every time a file changes it runs a particuar task depending of the type of the changed file: `gulp watch`. When a `js` or `html` file is changed, the `build-js` task is executed. When the changed file type is `.less`, so the `build-css` task get executed. All styles are concatenated and sent to the styles.css file.
+
+All the results are sent to the `www` folder. Which has the following structure:
+```
+client/
+|-- index.html
+|-- css/
+|-- fonts/
+|-- img/
+|-- js/
+|   |-- index.js    <-- All app js files and also two special angular modules for caching the html templates.
+|   |-- angular.js  <-- Contains angular and its dependencies.
+|-- mocks/
+```
+
+
 
 ### Building release code
 You can build a release version of the app, with minified files. The gulp task to do it is `gulp build --production`.
