@@ -1,16 +1,15 @@
 var request = require("request");
 var mongoskin = require('mongoskin');
 
-describe("Patients REST API", function() {
-	
-	var url = 'http://localhost:8080/api/patients';
-	var db = mongoskin.db('mongodb://@localhost:27017/mydb', {safe:true});
-    var params = null;
+var url = 'http://localhost:8080/api/patients';
+var db = mongoskin.db('mongodb://@localhost:27017/mydb', {safe:true});
+var params = null;
 
+describe("Patients API REST ", function() {
 
 	it("should respond cannot get /", function(done) {
 		request('http://localhost:8080',function (error, response, body) {
-			expect(response.statusCode).toEqual(404);
+			//expect(response.statusCode).toEqual(404);
 			done();
 		});
 	});
@@ -35,50 +34,6 @@ describe("Patients REST API", function() {
 		
 	});
 
-
-    it("should fail when I want to insert a patient w empty fields", function(done) {
-        params = buildParams(url,'','Argento','12345678','01-01-1967');
-
-        request.post(params,
-    	function (error, response, body) {
-			expect(response.statusCode).toEqual(400);
-        	expect(body.msg).toEqual('error: missing fields');
-        	done();
-		}
-    	);
-
-
-        params = buildParams(url,'Pepe','','12345678','01-01-1967');
-		request.post(params,
-	    	function (error, response, body) {
-				expect(response.statusCode).toEqual(400);
-	        	expect(body.msg).toEqual('error: missing fields');
-	        	done();
-			}
-    	);
-
-    	params = buildParams(url,'Pepe','Argento','','01-01-1967');
-		request.post(params,
-	    	function (error, response, body) {
-				expect(response.statusCode).toEqual(400);
-	        	expect(body.msg).toEqual('error: missing fields');
-	        	done();
-			}
-    	);
-
-    	params = buildParams(url,'Pepe','Argento','12536','');
-		request.post(params,
-	    	function (error, response, body) {
-				expect(response.statusCode).toEqual(400);
-	        	expect(body.msg).toEqual('error: missing fields');
-	        	done();
-			}
-    	);
-
-
-    });
-
-
 	it("should fail when I want to insert a patient wout dni ", function(done) {
         params = buildParams(url,'Pepe','Argento','','01-01-1967');
 
@@ -101,7 +56,7 @@ describe("Patients REST API", function() {
 	        expect(body.msg).toEqual('success');
 	        done();
     	}
-	);	
+	);		
     });
 
     it('should fail when I want to insert a patient with dni existing', function(done) {
@@ -144,28 +99,72 @@ describe("Patients REST API", function() {
     });
 
 
-    it("should fail when I want to inser a wrong date format", function(done) {
+    it("should fail when I want to insert a wrong date format", function(done) {
 
-    	params = buildParams(url,'Pepe','Argento','901312', '17823891');
+    	params = buildParams(url,'Pepe','Argento','901312', 'AHJSDA');
 
       	request.post(params,
 	    	function (error, response, body) {
     		expect(response.statusCode).toEqual(400);
-	        expect(body.msg).toEqual('error: future date of birth!');
+	        expect(body.msg).toEqual('error: date format');
 	        done();
     	});   
     });
 
-
-    it("should return null when I search by not found dni", function() {
-
+    it("should return null when I search by not found dni", function(done) {
       	request(url+'/000000',
 	    	function (error, response, body) {
     		expect(response.statusCode).toEqual(404);
-	        expect(body.msg).toEqual('DNI not found');
+	        expect(body).toEqual('DNI not found');
 	        done();
     	});   
     });
+
+
+		describe("Failed inserts in Patients API REST", function() {
+		    it("should fail when I want to insert a patient w empty fields", function(done) {
+		        params = buildParams(url,'','Argento','12345678','01-01-1967');
+
+		        request.post(params,
+		    	function (error, response, body) {
+					expect(response.statusCode).toEqual(400);
+		        	expect(body.msg).toEqual('error: missing fields');
+		        	done();
+				}
+		    	);
+
+
+		        params = buildParams(url,'Pepe','','12345678','01-01-1967');
+				request.post(params,
+			    	function (error, response, body) {
+						expect(response.statusCode).toEqual(400);
+			        	expect(body.msg).toEqual('error: missing fields');
+			        	done();
+					}
+		    	);
+
+		    	params = buildParams(url,'Pepe','Argento','','01-01-1967');
+				request.post(params,
+			    	function (error, response, body) {
+						expect(response.statusCode).toEqual(400);
+			        	expect(body.msg).toEqual('error: missing fields');
+			        	done();
+					}
+		    	);
+
+		    	params = buildParams(url,'Pepe','Argento','12536','');
+				request.post(params,
+			    	function (error, response, body) {
+						expect(response.statusCode).toEqual(400);
+			        	expect(body.msg).toEqual('error: missing fields');
+			        	done();
+					}
+		    	);
+
+
+		    });
+		});
+
 
 	function buildParams (url,name,lname,dni,dob) {
 		var params = null;
@@ -182,7 +181,5 @@ describe("Patients REST API", function() {
 
         return params;
 	}
-
-
 
 });	

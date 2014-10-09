@@ -1,31 +1,58 @@
-This node project provides means to manage patient information through a simple REST API.
+#Server
+This node project provides means to manage patient information through a simple REST API.  
 
-Patient Data Model
-{
-  firstName : Any non-empty string 
-  lastName : Any non-empty string
-  dni : Any string that represents a positive integer that doesnt start with zero
-  dob : Any string that represent a past date with format "dd-mm-yyyy" 
-}
+##Patient Data Model  
 
-GET /api/patients
-returns a JSON list of all patients in the system.
+{  
+  firstName : Any non-empty string  
+  lastName : Any non-empty string  
+  dni : Any string that represents a positive integer that doesnt start with zero  
+  dob : Any string that represent a past date with format "dd-mm-yyyy"  
+}  
 
-POST /api/patients
-Requires header: 'Content-Type: application/json'
-Expects to receive a JSON with containing all the patient information, if it passes the validation will be persisted.
-Returns 409 if provided DNI is already in use.
-Returns 404 if some field fail its validation.
+## API
 
-GET /api/patients/{dni}
-returns a patient information in JSON format or a 404 if provided dni doesnt match with any patient.
+* GET /api/patients  
+  returns a JSON list of all patients in the system.
 
-DELETE /api/patients/{dni}
-deletes a patient information or returns 404 if provided dni doesnt match with any patient.
+* POST /api/patients  
+  Expects header: 'Content-Type: application/json'  
+  Expects to receive a JSON with containing all the patient information, if it passes the validation will be persisted.  
+  Returns 409 if provided DNI is already in use.  
+  Returns 404 if some field fail its validation.  
 
-PUT /api/patients/{dni}
-Requires header: 'Content-Type: application/json'
-Updates a patient information with the data provided in the request body. Valid field to update are firstName, lastName, and dob, any other filed on the request body will be ingnored.
-New values are subject to the same validation as add new patient, returning 400 if any of them fails.
-Returns 404 if provided dni doesnt match with any patient.
+* GET /api/patients/{dni}  
+  returns a patient information in JSON format or a 404 if provided dni doesnt match with any patient.  
 
+* DELETE /api/patients/{dni}  
+  deletes a patient information or returns 404 if provided dni doesnt match with any patient.  
+
+* PUT /api/patients/{dni}  
+  Expects header: 'Content-Type: application/json'  
+  Updates a patient information with the data provided in the request body. Valid field to update are firstName, lastName, and dob, any other filed on the request body will be ingnored.  
+  New values are subject to the same validation as add new patient, returning 400 if any of them fails.  
+  Returns 404 if provided dni doesnt match with any patient.  
+
+
+##Deployment  
+
+1. set up mongo  
+2. install dependencies  
+   ```
+   npm install
+   ```
+3. run  
+   ```
+   npm server.js
+   ```
+   
+##Known Issues
+
+
+##Future work  
+
+  * Include an access logger [https://github.com/expressjs/morgan]  
+  
+  * Improve error handling [https://github.com/expressjs/errorhandler]  
+  
+  * Authenticate users [http://passportjs.org/]
