@@ -1,7 +1,7 @@
 var mongoskin = require('mongoskin');
 
-//mongodb connection
-var db = mongoskin.db('mongodb://@localhost:27017/mydb', {safe:true, auto_reconnect: true});
+var dbConf = process.env.DB_CONF || 'mongodb://@localhost:27017/mydb'; 
+var db = mongoskin.db(dbConf, {safe:true, auto_reconnect: true});
 
 db.bind('patients').bind({
     getByDNI : function (dni, callback) {
@@ -21,4 +21,4 @@ db.bind('patients').bind({
     }
 });
 
-module.exports = db;
+module.exports = db.patients;
