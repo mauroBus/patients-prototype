@@ -172,3 +172,23 @@ client/
 
 ### Building release code
 You can build a release version of the app, with minified files. The gulp task to do it is `gulp build --production`.
+
+### Building and Deploying with Cordova and Ionic
+
+If you want to test the application in either an android device or simulator, you need to install some utils.
+You can find a good installation guide [here](http://learn.ionicframework.com/videos/windows-android).
+You will need:
+
+1.  Download and Install Java and set the environment variable
+2.  Download and Install Apache Ant
+3.  Download and Install the Android SDK and set the environment variables
+4.  Install Cordova: `$ npm install -g cordova`
+5.  Install Ionic: `$ npm install -g ionic`
+6.  Add a platform: `$ ionic platform add android`
+7.  Build: `ionic build android`
+8.  Deploy: `ionic emulate android` (emulation) or `ionic run android` (connected android device)
+9.  See it in a browser: `gulp serve` or `ionic serve`
+
+# Useful Info
+
+* Cordova
