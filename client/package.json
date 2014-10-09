@@ -38,5 +38,8 @@
     "run-sequence": "^1.0.0",
     "shelljs": "^0.3.0",
     "yargs": "~1.3.1"
+  },
+  "scripts": {
+    "start": "npm install && npm install -g bower gulp && bower install && gulp build"
   }
 }
