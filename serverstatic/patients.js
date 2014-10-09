@@ -6,7 +6,7 @@ var ut = require('./utilities');
 module.exports = function(app){
     //get all patients 
     app.get('/patients', function(req, res){
-        db.patients.getAll(ut.genericDBCallback(res, function (res, items) {
+        db.getAll(ut.genericDBCallback(res, function (res, items) {
             res.json(items);
         }));
     });
@@ -14,7 +14,7 @@ module.exports = function(app){
     //for every request on this route will pre-fetch patient by DNI
     //before calling a specific handler
     app.use('/patients/:dni', function (req, res, next) {
-        db.patients.getByDNI(req.params.dni, ut.genericDBCallback(res, function (res, doc) {
+        db.getByDNI(req.params.dni, ut.genericDBCallback(res, function (res, doc) {
             if (!doc) {
                 return res.status(404).send('DNI not found');
             }
@@ -30,7 +30,7 @@ module.exports = function(app){
 
     //delete patient from collection
     app.delete('/patients/:dni', function (req, res) {
-        db.patients.delete(req.patient.dni, ut.genericDBCallback(res, function () { 
+        db.delete(req.patient.dni, ut.genericDBCallback(res, function () { 
             res.send({ msg: 'success' });
         }));
     });
@@ -54,7 +54,7 @@ module.exports = function(app){
         }
         next();
     }, function (req, res) {
-        db.patients.set(req.patient.dni, req.changes, ut.genericDBCallback(res, function (res) { 
+        db.set(req.patient.dni, req.changes, ut.genericDBCallback(res, function (res) { 
             res.send({ msg: 'success' });
         }));
     });
@@ -83,14 +83,14 @@ module.exports = function(app){
             return res.status(400).send( { msg: 'error: missing fields' });
         }
 	}, function (req, res, next) {
-        db.patients.getByDNI(req.newPatient.dni, ut.genericDBCallback(res, function (res, doc) {
+        db.getByDNI(req.newPatient.dni, ut.genericDBCallback(res, function (res, doc) {
             if (doc) {
                 return res.status(409).send( { msg: 'error: dni already in use!' });
             }
             next();
         }));
     }, function (req, res, next){
-        db.patients.add(req.newPatient, ut.genericDBCallback(res, function (res) { res.send({ msg: 'success' });} ));
+        db.add(req.newPatient, ut.genericDBCallback(res, function (res) { res.send({ msg: 'success' });} ));
     });
 
     return app;
