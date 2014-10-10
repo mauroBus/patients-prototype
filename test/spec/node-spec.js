@@ -7,13 +7,6 @@ var params = null;
 
 describe("Patients API REST ", function() {
 
-	it("should respond cannot get /", function(done) {
-		request('http://localhost:8080',function (error, response, body) {
-			expect(response.statusCode).toEqual(404);
-			done();
-		});
-	});
-
 	it("should respond empty body", function(done) {
 
 		db.collection('patients').remove({}, function (err,result) {
