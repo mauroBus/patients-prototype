@@ -7,7 +7,8 @@ angular.module('patientsApp', [
   'ngAnimate',
   'templates.app',
   'templates.common',
-  'ionic'
+  'ionic',
+  'nvd3ChartDirectives'
 ]);
 
 angular.module('patientsApp')

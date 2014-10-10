@@ -24,21 +24,17 @@ angular.module('patientsApp')
 
     return {
       patientRemoved: function() {
-        console.log('patientRemoved');
         statistics[0].y++;
         statistics[3].y--;
       },
       patientCreated: function() {
-        console.log('patientCreated');
         statistics[1].y++;
         statistics[3].y++;
       },
       patientUpdated: function() {
-        console.log('patientUpdated');
         statistics[2].y++;
       },
       setPatientsCount: function(count) {
-        console.log('setPatientsCount');
         statistics[3].y = count;
       },
 
@@ -61,7 +57,7 @@ angular.module('patientsApp')
       description: function() {
         return function(d) {
           return d.key + ': ' + d.y;
-        }
+        };
       }
 
     };
