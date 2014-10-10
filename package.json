@@ -1,0 +1,28 @@
+{
+  "name": "patients-prototype",
+  "version": "0.1.0",
+  "description": "Simple CRUD applicacion based on NodeJS and using MongoDB, Express, AngujarJS and Cordova.",
+  "directories": {
+    "test": "test",
+    "client": "client",
+    "server": "serverstatic"
+  },
+  "scripts": {
+    "install": "cd serverstatic && npm install && cd ../client && npm start && cd ../test && npm install && npm install jasmine-node -g",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/mauroBus/patients-prototype.git"
+  },
+  "authors": [
+    "Gabriel Lopez",
+    "Buselli Mauro",
+    "Lisandro Falconi"
+  ],
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/mauroBus/patients-prototype/issues"
+  },
+  "homepage": "https://github.com/mauroBus/patients-prototype"
+}

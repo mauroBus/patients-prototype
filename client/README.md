@@ -8,10 +8,16 @@ This repo just shows how to wire some modules, controllers, directives, services
 
 ## Stack
 
-* AngularJS and dependencies.
-* [Ionic](http://ionicframework.com/) Framework for Cordova.
+* AngularJS.
+    * Angular Bootstrap for Boostrap components.
+    * Angular Resource for RESTful comunication with the back end.
+    * Angular Route for handling the transition between several screens.
+    * Nv-D3 to handle the D3 charts with Angular directives.
+    * Angularjs-Nvd3-directives a set of custom directives to draw charts.
+    * Angular Templatecache for cache all html templates in Angular modules.
+* D3 for chart generation
+* [Ionic](http://ionicframework.com/) Framework for Cordova bootstrapping.
 * CSS based on [Twitter's Bootstrap](http://getbootstrap.com).
-* jQuery.
 
 ## Installation
 

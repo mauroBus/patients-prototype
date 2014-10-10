@@ -16,6 +16,7 @@ angular.module('patientsApp')
 
       scope.donut = true;
       scope.description = Statistics.description;
+      scope.tooltipContent = Statistics.tooltipContent;
     }
   };
 });
