@@ -49,7 +49,7 @@ angular.module('patientsApp')
       },
 
       yFunction: function() {
-        return function(d){
+        return function(d) {
           return d.y;
         };
       },
@@ -57,6 +57,14 @@ angular.module('patientsApp')
       description: function() {
         return function(d) {
           return d.key + ': ' + d.y;
+        };
+      },
+
+      tooltipContent: function() {
+        return function(key, x, y, e, graph) {
+          return '<span class="label label-default"' +
+            // 'x="' + y.pos[0] + '"' + ' y="' + y.pos[1] +
+            '>' + key + '</span>';
         };
       }
 
