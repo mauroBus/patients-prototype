@@ -1,15 +1,28 @@
-Simple CRUD applicacion using MongoDB, Express, AngujarJS and NodeJs.
+# Simple CRUD applicacion based on NodeJS and using MongoDB, Express, AngujarJS and Cordova.
 
-### How to build the client  
+## Building The whole app
 
-https://github.com/mauroBus/patients-prototype/blob/master/client/README.md
+To buid and execute the whole application, just run `npm install` from the project root directory.
+After that, run the server:
 
+  ```
+  npm mongod         <-- to start the database.
+  cd serverstatic
+  node server.js     <-- to start the NodeJS server.
+  ```
 
-### How to run the server  
+## Client Build
 
-https://github.com/mauroBus/patients-prototype/blob/master/serverstatic/README.md
+  ```
+  npm start
+  ```
 
+Check the client's [Readme file](./client) for much deeper information about the client.
 
-### How to run the tests  
+## Server Build
 
-https://github.com/mauroBus/patients-prototype/blob/master/test/README.MD
+Check the server's [Readme file](./serverstatic) for much deeper information about the Server.
+
+## Tests Build
+
+Check the test's [Readme file](./test) for much deeper information about the Tests and how to run them.
