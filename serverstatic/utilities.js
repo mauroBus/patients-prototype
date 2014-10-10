@@ -16,10 +16,7 @@ module.exports = {
     //tries to build a date from a dob value
     //returns null if something goes wrong 
     parseDoB : function (dob) {
-        // var dateParts = dob.split('-');
-        // var date = new Date(dateParts[2], (dateParts[1] - 1), dateParts[0]);
-        // return ( isNaN( date.getTime() ) ) ? null : date;
-        return new Date(dob);
+        return ( isNaN( new Date(dob).getTime() ) ) ? null : date;
     },
 
     //extracts required fields from body
