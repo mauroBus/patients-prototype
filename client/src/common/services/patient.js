@@ -2,8 +2,8 @@
 angular.module('patientsApp.services', ['ngResource'])
 
 .factory('Patient', [
-          '$resource', 'Urls',
-  function($resource,   Urls) {
+          '$resource', 'Urls', 'Statistics',
+  function($resource,   Urls,   Statistics) {
     return $resource(Urls.patients + '/:dni', { dni: '@dni' }, {
       query: {
         method: 'GET',
@@ -14,6 +14,8 @@ angular.module('patientsApp.services', ['ngResource'])
           jsonData.forEach(function(patient){
             patient.dob = new Date(patient.dob);
           });
+
+          Statistics.setPatientsCount(jsonData.length); // setting the total of patients.
           return jsonData;
         }
       },

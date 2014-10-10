@@ -2,8 +2,8 @@
 angular.module('patientsApp')
 
 .controller('NewPatientCtrl', [
-          '$scope', '$rootScope', '$location', 'Patient',
-  function($scope,   $rootScope,   $location,   Patient) {
+          '$scope', '$rootScope', '$location', 'Patient', 'Statistics',
+  function($scope,   $rootScope,   $location,   Patient,   Statistics) {
     var scope = {
       newPatient: {
         firstName: '',
@@ -33,6 +33,8 @@ angular.module('patientsApp')
             $scope.newPatient.lastName = '';
             $scope.newPatient.dni = '';
             $scope.newPatient.dob = '';
+
+            Statistics.patientCreated();
           },
           function() { // error cbk
             $scope.unsuccessfulyCreated = true;

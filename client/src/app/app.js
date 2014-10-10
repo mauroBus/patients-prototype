@@ -2,6 +2,7 @@ angular.module('patientsApp', [
   'ui.bootstrap',
   'patientsApp.services',
   'patientsApp.urlConfig',
+  'patientsApp.footer',
   'ngRoute',
   'ngAnimate',
   'templates.app',

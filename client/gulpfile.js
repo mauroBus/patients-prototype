@@ -111,6 +111,8 @@ gulp.task('copy-static', function() {
   return merge(
     gulp.src(config.vendor + '/bootstrap-css/css/*.css')
         .pipe(gulp.dest(config.cssDist)),
+    gulp.src(config.vendor + '/nvd3/nv.d3.css')
+        .pipe(gulp.dest(config.cssDist)),
     gulp.src(config.vendor + '/bootstrap-css/fonts/*')
         .pipe(gulp.dest(config.fontsDist)),
     gulp.src(['src/assets/**/*.*', '!src/assets/less/*.*'])
@@ -120,7 +122,10 @@ gulp.task('copy-static', function() {
           config.vendor + '/angular/angular.js',
           config.vendor + '/angular-route/angular-route.js',
           config.vendor + '/angular-resource/angular-resource.js',
-          config.vendor + '/ionic/js/ionic.bundle.js'
+          config.vendor + '/ionic/js/ionic.bundle.js',
+          config.vendor + '/d3/d3.min.js',
+          config.vendor + '/nvd3/nv.d3.min.js',
+          config.vendor + '/angularjs-nvd3-directives/dist/angularjs-nvd3-directives.min.js'
         ])
         .pipe(concat('angular.js')),
       gulp.src(config.vendor + '/angular-bootstrap/ui-bootstrap-tpls.js'),

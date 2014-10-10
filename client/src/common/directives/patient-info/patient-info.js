@@ -1,7 +1,7 @@
 
 angular.module('patientsApp')
 
-.directive('patientInfo', function(Patient) {
+.directive('patientInfo', function(Patient, Statistics) {
   return {
     restrict: 'E',
     transclude: true,
@@ -27,6 +27,8 @@ angular.module('patientsApp')
         Patient.update({dni: scope.patient.dni}, scope.patient);
         scope.editting = false;
         // angular.copy(scope.copy, scope.patient);
+
+        Statistics.patientUpdated();
       };
 
       scope.cancelEdition = function() {
