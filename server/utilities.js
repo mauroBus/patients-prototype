@@ -13,12 +13,34 @@ module.exports = {
         };
     },
 
-    //tries to build a date from a dob value
-    //returns null if something goes wrong 
-    parseDoB : function (dob) {
+
+    validateDoB : function(dob) {
+
         var date = new Date(dob);
-        return ( isNaN( date.getTime() ) ) ? null : date;
+
+        if (isNaN( date.getTime() )) {
+            return { msg: 'error: date format' };
+        }   
+        if (date > new Date()) { 
+            return { msg: 'error: future date of birth!' };
+        }
+
+        return null;
     },
+
+    validatePatient : function(patient) {
+        if (!patient) {
+            return { msg: 'error: missing fields' };
+        }
+
+        //matches any integer that does not start with zero A.K.A simple dni validation
+        if (! /^([1-9]\d*)$/.test(patient.dni)) {
+            return { msg: 'error: invalid DNI' };    
+        }
+        
+        return module.exports.validateDoB(patient.dob);
+    },
+
 
     //extracts required fields from body
     // if strict is set will fail if a field is not found

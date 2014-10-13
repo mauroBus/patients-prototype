@@ -38,23 +38,19 @@ module.exports = function(app){
     //update values 
     app.put('/patients/:dni', function (req, res, next) {
         //check which fields should be updated
-        req.changes = ut.extractFields(req.body,['firstName','lastName','dob'],false);
+        var changes = ut.extractFields(req.body,['firstName','lastName','dob'],false);
         
-        if (!req.changes) {
+        console.log(changes);
+
+        if (!changes) {
             return res.status(400).send( { msg: 'error: no fields to update' });
         }
-        if (req.changes.dob) {    
-            var dob = ut.parseDoB(req.changes.dob);
-            if (!dob) {
-                return res.status(400).send( { msg: 'error: date format' });
-            }   
-            if (dob > new Date()) { 
-                return res.status(400).send( { msg: 'error: future date of birth!' });
-            }
+
+        if (changes.dob){
+            var error = ut.validateDoB(changes.dob);
+            if (error) return res.status(400).send(error);
         }
-        next();
-    }, function (req, res) {
-        db.set(req.patient.dni, req.changes, ut.genericDBCallback(res, function (res) { 
+        db.set(req.patient.dni, changes, ut.genericDBCallback(res, function (res) { 
             res.send({ msg: 'success' });
         }));
     });
@@ -62,34 +58,19 @@ module.exports = function(app){
     //adding a new patient to the collection
     app.post('/patients',  function(req, res, next) {
 
-        newPatient = ut.extractFields(req.body,['firstName','lastName','dob','dni'],true);
-        //validating patient
-        if (newPatient)  {
-            var dob = ut.parseDoB(newPatient.dob);
-            if (!dob) {
-                return res.status(400).send( { msg: 'error: date format' });
-            }   
-            if (dob > new Date()) { 
-                return res.status(400).send( { msg: 'error: future date of birth!' });
-            }
+        var newPatient = ut.extractFields(req.body,['firstName','lastName','dob','dni'],true);
 
-            //matches any integer that does not start with zero A.K.A simple dni validation
-            if (! /^([1-9]\d*)$/.test(newPatient.dni)) {
-                return res.status(400).send( { msg: 'error: invalid DNI' });    
-            }
-            req.newPatient=newPatient;
-            next();
-        } else {
-            return res.status(400).send( { msg: 'error: missing fields' });
-        }
-	}, function (req, res, next) {
-        db.getByDNI(req.newPatient.dni, ut.genericDBCallback(res, function (res, doc) {
+        var error = ut.validatePatient(newPatient);
+        if (error) return res.status(400).send(error);
+
+        db.getByDNI(newPatient.dni, ut.genericDBCallback(res, function (res, doc) {
             if (doc) {
                 return res.status(409).send( { msg: 'error: dni already in use!' });
-            }
+            }   
+            req.newPatient=newPatient;
             next();
         }));
-    }, function (req, res, next){
+    },function(req,res){
         db.add(req.newPatient, ut.genericDBCallback(res, function (res) { res.send({ msg: 'success' });} ));
     });
 

@@ -10,6 +10,7 @@
         "grunt-jasmine-node-coverage": "0.1.11"
     },
     "scripts" : {
-        "test" : "jasmine-node spec --color --verbose --captureExceptions --forceexit"
+        "integration-test" : "jasmine-node spec --color --verbose --captureExceptions --forceexit",
+        "unit-test" : "jasmine-node server/ --color --verbose --captureExceptions --forceexit"
     }
 }
