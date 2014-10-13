@@ -152,7 +152,7 @@ describe("Patients API REST ", function() {
 		    var dd = today.getDate();
 		    var mm = today.getMonth()+1; //January is 0!
 		    var yy = today.getFullYear();
-		    var dobFuture = dd+'-'+mm+'-'+yy;
+		    var dobFuture = mm+'-'+dd+'-'+yy;
 	    	params = buildParams(url,'Pepe','Argento','901312', dobFuture);
 
 	      	request.post(params,
