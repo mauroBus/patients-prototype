@@ -39,8 +39,6 @@ module.exports = function(app){
     app.put('/patients/:dni', function (req, res, next) {
         //check which fields should be updated
         var changes = ut.extractFields(req.body,['firstName','lastName','dob'],false);
-        
-        console.log(changes);
 
         if (!changes) {
             return res.status(400).send( { msg: 'error: no fields to update' });

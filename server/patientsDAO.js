@@ -1,24 +1,34 @@
-var mongoskin = require('mongoskin');
+//var mongoskin = require('mongoskin');
+var mongoose = require('mongoose');
 
 var dbConf = process.env.DB_CONF || 'mongodb://@localhost:27017/mydb'; 
-var db = mongoskin.db(dbConf, {safe:true, auto_reconnect: true});
+var db = mongoose.connect(dbConf, {safe:true, auto_reconnect: true});
 
-db.bind('patients').bind({
+var Patient  = mongoose.model('Patient',
+    new mongoose.Schema({
+        firstName: String,
+        lastName: String,
+        dob: String, //Date
+        dni: String 
+    },{collection: 'patients'})
+);
+
+
+
+module.exports ={
     getByDNI : function (dni, callback) {
-        this.findOne({dni:dni},{_id:0}, callback);
+        Patient.findOne({dni:dni},{'__v':0,'_id': 0}, callback);
     },
     getAll : function (callback) {
-        this.find({},{_id:0}).toArray(callback);
+        Patient.find({},{'__v':0,'_id': 0}).exec(callback);
     },
     set : function (dni, changes, callback) {
-        this.update({dni: dni}, { $set : changes }, callback);
+        Patient.findOneAndUpdate({dni: dni}, changes, callback);
     },
     delete : function (dni, callback) {
-        this.remove({dni: dni}, callback);
+        Patient.remove({dni: dni}, callback);
     },
     add : function (patient, callback) {
-        this.insert( patient, callback);
+        ( new Patient(patient)).save(callback);
     }
-});
-
-module.exports = db.patients;
+};
