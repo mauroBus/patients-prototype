@@ -183,16 +183,16 @@
     <h1>Code coverage report for <span class="entity">spec\node-spec.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">100% <small>(124 / 124)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">92.74% <small>(115 / 124)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
         Branches: <span class="metric">50% <small>(1 / 2)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Functions: <span class="metric">100% <small>(36 / 36)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">91.67% <small>(33 / 36)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">100% <small>(124 / 124)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">92.74% <small>(115 / 124)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
     </h2>
     <div class="path"><a href="../index.html">All files</a> &#187; <a href="index.html">spec\</a> &#187; node-spec.js</div>
@@ -634,27 +634,27 @@
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">1</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
+<span class="cline-any cline-no">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -873,28 +873,28 @@ describe("Patients API REST ", function() {
 &nbsp;
 	        params = buildParams(url,'Pepe','','12345678','01-01-1967');
 			request.post(params,
-		    	function (error, response, body) {
-					expect(response.statusCode).toEqual(400);
-		        	expect(body.msg).toEqual('error: missing fields');
-		        	done();
+<span class="fstat-no" title="function not covered" >		    	function (error, response, body) {</span>
+<span class="cstat-no" title="statement not covered" >					expect(response.statusCode).toEqual(400);</span>
+<span class="cstat-no" title="statement not covered" >		        	expect(body.msg).toEqual('error: missing fields');</span>
+<span class="cstat-no" title="statement not covered" >		        	done();</span>
 				}
 	    	);
 &nbsp;
 	    	params = buildParams(url,'Pepe','Argento','','01-01-1967');
 			request.post(params,
-		    	function (error, response, body) {
-					expect(response.statusCode).toEqual(400);
-		        	expect(body.msg).toEqual('error: missing fields');
-		        	done();
+<span class="fstat-no" title="function not covered" >		    	function (error, response, body) {</span>
+<span class="cstat-no" title="statement not covered" >					expect(response.statusCode).toEqual(400);</span>
+<span class="cstat-no" title="statement not covered" >		        	expect(body.msg).toEqual('error: missing fields');</span>
+<span class="cstat-no" title="statement not covered" >		        	done();</span>
 				}
 	    	);
 &nbsp;
 	    	params = buildParams(url,'Pepe','Argento','12536','');
 			request.post(params,
-		    	function (error, response, body) {
-					expect(response.statusCode).toEqual(400);
-		        	expect(body.msg).toEqual('error: missing fields');
-		        	done();
+<span class="fstat-no" title="function not covered" >		    	function (error, response, body) {</span>
+<span class="cstat-no" title="statement not covered" >					expect(response.statusCode).toEqual(400);</span>
+<span class="cstat-no" title="statement not covered" >		        	expect(body.msg).toEqual('error: missing fields');</span>
+<span class="cstat-no" title="statement not covered" >		        	done();</span>
 				}
 	    	);
 &nbsp;
@@ -924,7 +924,7 @@ describe("Patients API REST ", function() {
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Oct 10 2014 12:05:10 GMT-0300 (Hora estándar de Argentina)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Oct 10 2014 14:48:37 GMT-0300 (Hora estándar de Argentina)</div>
 </div>
 
 <script src="../prettify.js"></script>
