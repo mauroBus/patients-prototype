@@ -2,6 +2,10 @@
     "name" : "patientsTest",
     "version" : "1.0.0",
     "description": "",
+    "repository": {
+        "type": "git",
+        "url": "https://github.com/mauroBus/patient-prototype.git"
+    },
     "devDependencies" : {
         "jasmine-node" : "~1.14.3",
         "mongoskin": "1.4.4",

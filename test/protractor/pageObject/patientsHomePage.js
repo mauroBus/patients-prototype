@@ -23,6 +23,9 @@ var PatientsHomePage = function() {
 	this.newDobInput = element(by.model('newPatient.dob'));
 	this.newPatientButton = element(by.buttonText('Add Patient'));
 
+	var monthNames = [ "January", "February", "March", "April", "May", "June",
+    "July", "August", "September", "October", "November", "December" ];
+
 	this.get = function() {
 		browser.get('http://localhost:8080');
 	};
@@ -49,29 +52,61 @@ var PatientsHomePage = function() {
 	};
 
 	this.setDOB = function (dob) {
-		this.newDobInput.sendKeys(dob);
+		//this.newDobInput.sendKeys(dob);
+		//getFullYear
+		var year = dob.getFullYear();
+		element(by.model('newPatient.dob')).element(by.css('[ng-click="toggleMode()"]')).click();
+		element(by.css('[ng-click="toggleMode()"]')).click();
+		if (year > 2000 && year < 2021) {
+			element(by.buttonText(year)).click();
+		} else if(year > 1980 && year < 2001){
+			element(by.css('[ng-click="move(-1)"]')).click();
+			element(by.buttonText(year.toString())).click();
+		};
+		
+		//month
+		element(by.buttonText(monthNames[dob.getMonth()])).click();
+		//day
+		element(by.buttonText(dob.getDate().toString())).click();
+		
 	};
 
 	this.getSearchResults = function () {
 		return element.all(by.repeater('(id, patient) in patients | filter:searchTxt'));
 	};
 
-	this.getPatientNameBinding = function (element) {
-		return element.element(by.binding('patient.firstName')).getText();
+	this.getPatientNameBinding = function (patientDiv) {
+		return patientDiv.element(by.binding('patient.firstName')).getText();
 	};
 
-	this.getPatientLastNameBinding = function (element) {
-		return element.element(by.binding('patient.lastName')).getText();
+	this.getPatientLastNameBinding = function (patientDiv) {
+		return patientDiv.element(by.binding('patient.lastName')).getText();
 	};
 
-	this.getPatientDNIBinding = function (element) {
-		return element.element(by.binding('patient.dni')).getText();
+	this.getPatientDNIBinding = function (patientDiv) {
+		return patientDiv.element(by.binding('patient.dni')).getText();
 	};
 
-	this.getPatientDOBBinding = function (element) {
-		return element.element(by.binding('patient.dob')).getText();
+	this.getPatientDOBBinding = function (patientDiv) {
+		return patientDiv.element(by.binding('patient.dob')).getText();
 	};
 
+	this.editPatientInfo = function () {
+		element(by.css('[ng-click="edit()"]')).click();
+	}
+
+	this.editPatientName = function (newName) {
+		element(by.model('patient.firstName')).clear();
+		element(by.model('patient.firstName')).sendKeys(newName);
+	}
+
+	this.savePatientEdition = function () {
+		element(by.css('[ng-click="save()"]')).click();
+	}
+
+	this.deletePatient = function (patientDiv) {
+		patientDiv.element(by.css('[ng-click="remove($index, $event)"]')).click();
+	}
 
 };
 
