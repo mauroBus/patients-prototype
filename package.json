@@ -5,11 +5,17 @@
   "directories": {
     "test": "test",
     "client": "client",
-    "server": "serverstatic"
+    "server": "server"
   },
   "scripts": {
-    "install": "cd serverstatic && npm install && cd ../client && npm start && cd ../test && npm install && npm install jasmine-node -g",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "init": "npm install && cd ./client && npm start && cd ../test && npm install && npm install jasmine-node -g",
+    "test": "cd ./test && npm run unit-test && npm run integration-test"
+  },
+  "dependencies": {
+    "express": "4.x",
+    "body-parser": "1.9.0",
+    "mongoskin": "1.4.4",
+    "mongoose": "3.8.17"
   },
   "repository": {
     "type": "git",
